@@ -1,0 +1,35 @@
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+let g:airline#extensions#tabline#enabled = 1
+
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+autocmd BufWritePre * :%s/\s\+$//e
+
+ set hidden
+ nmap <leader>T :enew<cr>
+ nmap <leader>l :bnext<CR>
+ nmap <leader>h :bprevious<CR>
+ nmap <leader>bq :bp <BAR> bd #<CR>
+ nmap <leader>bl :ls<CR>
+ " The Silver Searcher
+ if executable('ag')
+   " Use ag over grep
+   set grepprg=ag\ --nogroup\ --nocolor
+
+   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+   " ag is fast enough that CtrlP doesn't need to cache
+   let g:ctrlp_use_caching = 0
+ endif
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+nnoremap <leader><leader> <c-^>
+set clipboard=unnamed
+colorscheme gruvbox
+set background=dark
+let g:multi_cursor_exit_from_insert_mode=0
+set t_ut=
