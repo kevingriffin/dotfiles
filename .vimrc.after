@@ -33,3 +33,4 @@ colorscheme gruvbox
 set background=dark
 let g:multi_cursor_exit_from_insert_mode=0
 set t_ut=
+let NERDTreeQuitOnOpen = 1
