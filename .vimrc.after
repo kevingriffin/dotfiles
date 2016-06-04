@@ -30,6 +30,9 @@ nnoremap <leader>i :cd /data/iknow<CR>:CtrlP /data/iknow<CR>
 nnoremap <leader>a :cd /data/smart_api<CR>:CtrlP /data/smart_api<CR>
 nnoremap <leader>c :cd /data/smart_core<CR>:CtrlP /data/smart_core<CR>
 
+""" Ruby
+nnoremap <leader>g :execute "cd" . system("rvm gempath \| awk -F: '{print $1 \"/gems\"}' ") <CR>
+
 """ Split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
