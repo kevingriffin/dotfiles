@@ -34,7 +34,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
-alias gems="cd \`rvm gempath | cut -d : -f1\`/gems"
+alias gems="vim \`rvm gempath | cut -d : -f1\`/gems"
 
 export ARCHFLAGS="-arch i386 -arch x86_64"
 
