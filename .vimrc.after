@@ -1,36 +1,59 @@
+" Strip trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
+
+" Using buffers like tabs in a GUI editor
+set hidden
+nmap <leader>T :enew<cr>
+nmap <leader>bq :bp <BAR> bd #<CR>
+nmap <leader>bl :ls<CR>
+
+""" The Silver Searcher (from Thoughtbot)
+if executable('ag')
+ " Use ag over grep
+ set grepprg=ag\ --nogroup\ --nocolor
+
+ " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+ let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+ " ag is fast enough that CtrlP doesn't need to cache
+ let g:ctrlp_use_caching = 0
+endif
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
+""" Keybinds
+nnoremap <leader><leader> <c-^>
+nnoremap <c-]> :bn<CR>
+nnoremap <c-[> :bp<CR>
+
+""" iKnow-specific
+nnoremap <leader>i :cd /data/iknow<CR>:CtrlP /data/iknow<CR>
+nnoremap <leader>a :cd /data/smart_api<CR>:CtrlP /data/smart_api<CR>
+nnoremap <leader>c :cd /data/smart_core<CR>:CtrlP /data/smart_core<CR>
+
+""" Split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-let g:airline#extensions#tabline#enabled = 1
-
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-autocmd BufWritePre * :%s/\s\+$//e
-
- set hidden
- nmap <leader>T :enew<cr>
- nmap <leader>l :bnext<CR>
- nmap <leader>h :bprevious<CR>
- nmap <leader>bq :bp <BAR> bd #<CR>
- nmap <leader>bl :ls<CR>
- " The Silver Searcher
- if executable('ag')
-   " Use ag over grep
-   set grepprg=ag\ --nogroup\ --nocolor
-
-   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-   " ag is fast enough that CtrlP doesn't need to cache
-   let g:ctrlp_use_caching = 0
- endif
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-nnoremap <leader><leader> <c-^>
+""" Appearence and terminal settings
+" Sync OS X (macOS?) clipboard
 set clipboard=unnamed
+" Dark themes are cool
 colorscheme gruvbox
 set background=dark
-let g:multi_cursor_exit_from_insert_mode=0
+" Fix drawing issues with xterm-color setting
 set t_ut=
+
+""" Airline
+" Always show buffer bar, with numbers for switching with :b <number>
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+""" Nerd Tree
 let NERDTreeQuitOnOpen = 1
+
+""" Multi cursor
+" Stay in multiple cursor mode until canceled, for better movement
+let g:multi_cursor_exit_from_insert_mode=0
