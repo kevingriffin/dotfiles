@@ -1,6 +1,12 @@
 " Strip trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
+""" Airline
+" Always show buffer bar, with numbers for switching with :b <number>
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
 " Using buffers like tabs in a GUI editor
 set hidden
 nmap <leader>T :enew<cr>
@@ -48,12 +54,6 @@ colorscheme gruvbox
 set background=dark
 " Fix drawing issues with xterm-color setting
 set t_ut=
-
-""" Airline
-" Always show buffer bar, with numbers for switching with :b <number>
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
 
 """ Nerd Tree
 let NERDTreeQuitOnOpen = 1
