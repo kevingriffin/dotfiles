@@ -24,7 +24,14 @@ if executable('ag')
  " ag is fast enough that CtrlP doesn't need to cache
  let g:ctrlp_use_caching = 0
 endif
+
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
+""" CtrlP
+let g:ctrlp_max_history = 0
+let g:ctrlp_working_path_mode = 'w'
+let g:ctrlp_max_files=0
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
 """ Keybinds
 nnoremap <leader><leader> <c-^>
@@ -54,11 +61,24 @@ set clipboard=unnamed
 colorscheme gruvbox
 set background=dark
 " Fix drawing issues with xterm-color setting
+set shell=/bin/bash\ --rcfile\ ~/.bash_profile
 set t_ut=
-
 """ Nerd Tree
 let NERDTreeQuitOnOpen = 1
 
 """ Multi cursor
 " Stay in multiple cursor mode until canceled, for better movement
 let g:multi_cursor_exit_from_insert_mode=0
+
+""" Tabularize
+if exists(":Tabularize")
+  nmap <Leader>b= :Tabularize /=<CR>
+  vmap <Leader>b= :Tabularize /=<CR>
+  nmap <Leader>b: :Tabularize /:\zs<CR>
+  vmap <Leader>b: :Tabularize /:\zs<CR>
+endif
+
+""" Airline customization
+let g:airline_section_b = '%{getcwd()}'
+let g:airline_theme='distinguished'
+let g:airline_detect_modified = 1
