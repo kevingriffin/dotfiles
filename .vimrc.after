@@ -48,21 +48,14 @@ nnoremap <leader>c :cd /data/smart_core<CR>:CtrlP /data/smart_core<CR>
 """ Ruby
 nnoremap <leader>g :execute "cd" . system("rvm gempath \| awk -F: '{print $1 \"/gems\"}' ") <CR>
 
-""" Split navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
 """ Appearence and terminal settings
 " Sync OS X (macOS?) clipboard
 set clipboard=unnamed
 " Dark themes are cool
 colorscheme gruvbox
 set background=dark
-" Fix drawing issues with xterm-color setting
-set shell=/bin/bash\ --rcfile\ ~/.bash_profile
 set t_ut=
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 """ Nerd Tree
 let NERDTreeQuitOnOpen = 1
 
@@ -77,6 +70,12 @@ if exists(":Tabularize")
   nmap <Leader>b: :Tabularize /:\zs<CR>
   vmap <Leader>b: :Tabularize /:\zs<CR>
 endif
+
+""" Split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 """ Airline customization
 let g:airline_section_b = '%{getcwd()}'
