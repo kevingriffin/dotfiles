@@ -56,11 +56,13 @@ colorscheme gruvbox
 set background=dark
 set t_ut=
 
-" This disables all color in Prompt on iOS
+" The enable true color setting disables all color in Prompt on iOS
+" so disable
 if $TERM_PROGRAM == "iTerm.app"
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  if has('nvim')
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
 endif
-
 """ Nerd Tree
 let NERDTreeQuitOnOpen = 1
 
