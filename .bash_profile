@@ -88,7 +88,8 @@ alias gc='g checkout'
 alias gm='g commit -m'
 alias gd='g diff'
 alias gb='g branch'
-GIT_EDITOR="vim"
+GIT_EDITOR="nvim"
+EDITOR="nvim"
 
 #LANGUAGE=
 LC_ALL='en_US.UTF-8'
