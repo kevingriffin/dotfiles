@@ -13,6 +13,9 @@ nmap <leader>T :enew<cr>
 nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 
+nnoremap <leader>p "0p
+
+
 """ The Silver Searcher (from Thoughtbot)
 if executable('ag')
  " Use ag over grep
