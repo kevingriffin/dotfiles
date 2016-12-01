@@ -40,16 +40,74 @@ let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 nnoremap <leader><leader> <c-^>
 nnoremap <leader>q :Bdelete<CR>
 
+" Insert hash rocket
+imap <c-l> <space>=><space>
+
+""""""" MULTIPURPOSE TAB KEY
+
+" Indent if we're at the beginning of a line. Else, do completion.
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <expr> <tab> InsertTabWrapper()
+inoremap <s-tab> <c-n>
+
+""""""""
+
+"""""" Toggle quickfix faster
+
+function! GetBufferList()
+  redir =>buflist
+  silent! ls
+  redir END
+  return buflist
+endfunction
+
+function! BufferIsOpen(bufname)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      return 1
+    endif
+  endfor
+  return 0
+endfunction
+
+function! ToggleQuickfix()
+  if BufferIsOpen("Quickfix List")
+    cclose
+  else
+    cope
+  endif
+endfunction
+
+
+nnoremap <leader>q :call ToggleQuickfix()<cr>
+
+"""""""
+
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 """ iKnow-specific
 nnoremap <leader>i :cd /data/iknow<CR>:CtrlP /data/iknow<CR>
-nnoremap <leader>a :cd /data/smart_api<CR>:CtrlP /data/smart_api<CR>
-nnoremap <leader>c :cd /data/smart_core<CR>:CtrlP /data/smart_core<CR>
+nnoremap <leader>e :cd /data/eikaiwa_content<CR>:CtrlP /data/eikaiwa_content<CR>
+nnoremap <leader>ef :cd /data/eikaiwa_content_frontend<<CR>:CtrlP /data/eikaiwa_content_frontend<CR>
 
 """ Ruby
+" Navigate to gems
 nnoremap <leader>g :execute "cd" . system("rvm gempath \| awk -F: '{print $1 \"/gems\"}' ") <CR>
+
+nmap <c-m> :w<CR><Plug>TermRunnerCmd be rspec<CR>
+
+""" Commands
+command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr><Paste>
+command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<cr>
 
 """ Appearence and terminal settings
 " Sync OS X (macOS?) clipboard
