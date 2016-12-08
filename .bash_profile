@@ -9,11 +9,16 @@ alias chomp="tr -d \"\n\""
 export HISTSIZE=5000
 
 function bundle() {
-if [ -d 'bin' ]
-then
-  ./bin/bundle "$@"
-else `which bundle` "$@"
-fi
+    if git rev-parse --is-inside-git-dir 2>/dev/null >&2; then
+        BUNDLER="$(git rev-parse --show-toplevel)/bin/bundle"
+        if [ -f ${BUNDLER} -a -x ${BUNDLER} ]; then
+            ${BUNDLER} "$@"
+        else
+            "$(which bundle)" "$@"
+        fi
+    else
+        "$(which bundle)" "$@"
+    fi
 }
 
 realpath() {
@@ -30,11 +35,13 @@ alias zipfolder="zip -r"
 alias postgres_start="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 alias be="bundle exec"
 alias dsclean="noglob find . -name *.DS_Store -type f -delete"
+alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
-alias gems="vim \`rvm gempath | cut -d : -f1\`/gems"
+alias gems="nvim \`rvm gempath | cut -d : -f1\`/gems"
+alias lockscreen="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 export ARCHFLAGS="-arch i386 -arch x86_64"
 
@@ -52,15 +59,16 @@ function bundle() {
 }
 
 # iKnow
-alias smc="cd /data/smart_core"
-alias iknow="cd /data/iknow"
-alias api="cd /data/smart_api"
+alias ik="cd /data/iknow"
+alias ec="cd /data/eikaiwa_content"
+alias ecf="cd /data/eikaiwa_content_frontend"
+alias eclog="tail -f /data/eikaiwa_content/log/development.log"
+alias eclogt="tail -f /data/eikaiwa_content/log/test.log"
 alias deploy="cd /data/smart_deploy"
 alias chefctl="cd /data/chef-ctl"
 alias iknow_deploy_env="chef-ctl e iknowjp_production"
 
 alias stable="g checkout -q origin/stable"
-alias remigrate="RAILS_ENV=test be rake cerego:db:remigrate"
 
 ## Ruby ##
 export RUBY_GC_HEAP_INIT_SLOTS=1650000
@@ -68,6 +76,8 @@ export RUBY_HEAP_FREE_MIN=200000
 export RUBY_HEAP_SLOTS_INCREMENT=300000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 export RUBY_GC_MALLOC_LIMIT=189000000
+
+alias "pryc"="pry -r ./config/environment"
 
 # Git
 function parse_git_branch() {
