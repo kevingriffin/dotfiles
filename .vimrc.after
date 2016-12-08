@@ -103,7 +103,7 @@ nnoremap <leader>ef :cd /data/eikaiwa_content_frontend<<CR>:CtrlP /data/eikaiwa_
 " Navigate to gems
 nnoremap <leader>g :execute "cd" . system("rvm gempath \| awk -F: '{print $1 \"/gems\"}' ") <CR>
 
-nmap <c-m> :w<CR><Plug>TermRunnerCmd be rspec<CR>
+map <leader>m :w<CR><Plug>TermRunnerCmd be rspec<CR>
 
 """ Commands
 command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr><Paste>
