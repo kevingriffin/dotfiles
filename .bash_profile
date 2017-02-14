@@ -42,7 +42,7 @@ export RUBY_GC_HEAP_GROWTH_MAX_SLOTS=300000
 export RUBY_GC_MALLOC_LIMIT=64000000
 export RUBY_GC_OLDMALLOC_LIMIT=64000000
 
-alias "pryc"="pry -r ./config/environment"
+alias rc="pry -r ./config/environment"
 
 # Git
 function parse_git_branch() {
