@@ -194,6 +194,18 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <Tab> <C-W><C-W>
 nnoremap <S-Tab> <C-W>W
 
+""" For TouchBar, but can also be used from Fkeys
+nnoremap <F8> <C-w><C-=>
+if exists(":Tabularize")
+  nmap <F9> :Tabularize /=<CR>
+  vmap <F9> :Tabularize /=<CR>
+  nmap <F10> :Tabularize /:\zs<CR>
+  vmap <F10> :Tabularize /:\zs<CR>
+endif
+
+nnoremap <F11> :vs<CR>
+nnoremap <F12> :sp<CR>
+
 set splitbelow
 set splitright
 
