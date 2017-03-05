@@ -1,3 +1,6 @@
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
+
 # Aliases ##
 
 # Network
@@ -22,13 +25,13 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
 # iKnow
-alias ik="cd /code/iknow"
-alias ec="cd /code/eikaiwa_content"
-alias ecf="cd /code/eikaiwa_content_frontend"
-alias eclog="tail -f /code/eikaiwa_content/log/development.log"
-alias eclogt="tail -f /code/eikaiwa_content/log/test.log"
-alias deploy="cd /code/smart_deploy"
-alias chefctl="cd /code/chef-ctl"
+alias ik="cd ~/code/iknow"
+alias ec="cd ~/code/eikaiwa_content"
+alias ecf="cd ~/code/eikaiwa_content_frontend"
+alias eclog="tail -f ~/code/eikaiwa_content/log/development.log"
+alias eclogt="tail -f ~/code/eikaiwa_content/log/test.log"
+alias deploy="cd ~/code/smart_deploy"
+alias chefctl="cd ~/code/chef-ctl"
 alias iknow_deploy_env="chef-ctl e iknowjp_production"
 
 alias stable="g checkout -q origin/stable"
