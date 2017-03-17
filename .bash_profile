@@ -33,6 +33,8 @@ alias eclogt="tail -f ~/code/eikaiwa_content/log/test.log"
 alias deploy="cd ~/code/smart_deploy"
 alias chefctl="cd ~/code/chef-ctl"
 alias iknow_deploy_env="chef-ctl e iknowjp_production"
+alias iknowjapan="export IKNOW_CONFIGURATION_FILE=config/site_configuration/japan.yml && cp config/.database.yml.japan config/database.yml"
+alias iknowchina="export IKNOW_CONFIGURATION_FILE=config/site_configuration/china.yml && cp config/.database.yml.china config/database.yml"
 
 alias stable="g checkout -q origin/stable"
 

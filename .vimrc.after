@@ -206,6 +206,11 @@ endif
 nnoremap <F11> :vs<CR>
 nnoremap <F12> :sp<CR>
 
+nnoremap <F5> :call WindowSwap#EasyWindowSwap()<CR><C-W><C-H> :call WindowSwap#EasyWindowSwap()<CR>
+nnoremap <F6> :call WindowSwap#EasyWindowSwap()<CR><C-W><C-J> :call WindowSwap#EasyWindowSwap()<CR>
+nnoremap <F7> :call WindowSwap#EasyWindowSwap()<CR><C-W><C-K> :call WindowSwap#EasyWindowSwap()<CR>
+nnoremap <F8> :call WindowSwap#EasyWindowSwap()<CR><C-W><C-L> :call WindowSwap#EasyWindowSwap()<CR>
+
 set splitbelow
 set splitright
 
