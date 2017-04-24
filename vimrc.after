@@ -14,7 +14,7 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 
 nnoremap <leader>p "0p
-
+nnoremap <leader><leader> <c-^>
 
 """ The Silver Searcher (from Thoughtbot)
 if executable('ag')
@@ -26,9 +26,9 @@ if executable('ag')
 
  " ag is fast enough that CtrlP doesn't need to cache
  let g:ctrlp_use_caching = 0
-endif
 
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+ let g:ackprg = 'ag --vimgrep'
+endif
 
 """ CtrlP
 let g:ctrlp_max_history = 0
@@ -37,7 +37,6 @@ let g:ctrlp_max_files=0
 let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
 """ Keybinds
-nnoremap <leader><leader> <c-^>
 nnoremap <leader>q :Bdelete<CR>
 
 " Insert hash rocket
@@ -101,7 +100,7 @@ nnoremap <leader>ef :cd /data/eikaiwa_content_frontend<<CR>:CtrlP /data/eikaiwa_
 
 """ Ruby
 " Navigate to gems
-nnoremap <leader>g :execute "cd" . system("rvm gempath \| awk -F: '{print $1 \"/gems\"}' ") <CR>
+nnoremap <leader>g :execute "cd" . $GEM_HOME . "/gems" <CR>
 
 map <leader>m :w<CR><Plug>TermRunnerCmd be rspec<CR>
 
@@ -184,6 +183,24 @@ if has('nvim')
   let g:terminal_color_7 = "#a89984"
   let g:terminal_color_15 = "#ebdbb2"
 endif
+
+""" easymotion
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap <Space> <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap <Leader><Space> <Plug>(easymotion-overwin-f2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
 
 """ Split navigation
 nnoremap <C-J> <C-W><C-J>
