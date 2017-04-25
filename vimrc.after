@@ -1,5 +1,25 @@
 " Strip trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
+set nocompatible
+
+runtime macros/matchit.vim
+
+if has("autocmd")
+  filetype indent plugin on
+endif
+
+call expand_region#custom_text_objects({
+\ 'ii' :0,
+\ 'ai' :0,
+\ })
+call expand_region#custom_text_objects('ruby', {
+\ 'ib' :0,
+\ 'ab' :0,
+\ 'im' :0,
+\ 'am' :0,
+\ 'iM' :0,
+\ 'aM' :0,
+\ })
 
 """ Airline
 " Always show buffer bar, with numbers for switching with :b <number>
@@ -235,3 +255,4 @@ set splitright
 let g:airline_section_b = '%{getcwd()}'
 let g:airline_theme='distinguished'
 let g:airline_detect_modified = 1
+
