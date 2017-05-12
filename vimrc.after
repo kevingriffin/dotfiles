@@ -234,6 +234,10 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <Tab> <C-W><C-W>
 nnoremap <S-Tab> <C-W>W
 
+
+""" GUI options
+set guioptions=
+
 """ For TouchBar, but can also be used from Fkeys
 nnoremap <F8> <C-w><C-=>
 if exists(":Tabularize")
