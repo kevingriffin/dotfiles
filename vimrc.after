@@ -50,6 +50,9 @@ if executable('ag')
  let g:ackprg = 'ag --vimgrep'
 endif
 
+noremap <Leader>a :Ack <cword><cr>
+xnoremap <Leader>a y:Ack <C-r>=fnameescape(@")<CR><CR>
+
 """ CtrlP
 let g:ctrlp_max_history = 0
 let g:ctrlp_working_path_mode = 'w'
