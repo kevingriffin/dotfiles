@@ -1,8 +1,55 @@
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'mileszs/ack.vim'
+Plug 'JazzCore/ctrlp-cmatcher'
+Plug 'morhetz/gruvbox'
+Plug 'davidmh/nvim-terminal-runner'
+Plug 'AndrewRadev/sideways.vim'
+Plug 'godlygeek/tabular'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'moll/vim-bbye'
+Plug 'maxbrunsfeld/vim-emacs-bindings'
+Plug 'terryma/vim-expand-region'
+Plug 'mxw/vim-jsx'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'kana/vim-textobj-user'
+Plug 'tpope/vim-unimpaired'
+Plug 'wesQ3/vim-windowswap'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ddollar/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'elzr/vim-json'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'bronson/vim-trailing-whitespace'
+call plug#end()
+
+set nocompatible
+set encoding=utf-8                   " Format of the text in our files (prob not necessary, but should prevent weird errors)
+filetype plugin on                   " Load code that configures vim to work better with whatever we're editing
+filetype indent on                   " Load code that lets vim know when to indent our cursor
+syntax on
+set nowrap                           " Display long lines as truncated instead of wrapped onto the next line
+set number                           " Show line numbers
+set nohlsearch                         " Highlight all search matches that are on the screen
+set showcmd                          " Display info known about the command being edited (eg number of lines highlighted in visual mode)
+set incsearch
+set expandtab                        " When I press tab, insert spaces instead
+set shiftwidth=2                     " Specifically, insert 2 spaces
+set tabstop=2
+set mouse=a
+
+if has('nvim') && $TERM_PROGRAM == "iTerm.app"
+  set termguicolors
+endif
+
 " Strip trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
-set nocompatible
-
-runtime macros/matchit.vim
 
 if has("autocmd")
   filetype indent plugin on
@@ -132,20 +179,11 @@ command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr><Paste>
 command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<cr>
 
 """ Appearence and terminal settings
-" Sync OS X (macOS?) clipboard
-set clipboard=unnamed
 " Dark themes are cool
 colorscheme gruvbox
 set background=dark
 set t_ut=
 
-" The enable true color setting disables all color in Prompt on iOS
-" so disable
-if $TERM_PROGRAM == "iTerm.app"
-  if has('nvim')
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-endif
 """ Nerd Tree
 let NERDTreeQuitOnOpen = 1
 
@@ -163,9 +201,6 @@ endif
 
 """ JSON
 let g:vim_json_syntax_conceal = 0
-
-""" Vroom
-let g:vroom_use_terminal = 1
 
 """ Sideways.vim
 nnoremap <, :SidewaysLeft<cr>
@@ -210,24 +245,6 @@ if has('nvim')
   let g:terminal_color_15 = "#ebdbb2"
 endif
 
-""" easymotion
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-nmap <Space> <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-nmap <Leader><Space> <Plug>(easymotion-overwin-f2)
-
-" Turn on case insensitive feature
-let g:EasyMotion_smartcase = 1
-
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-
 """ Split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -236,20 +253,6 @@ nnoremap <C-H> <C-W><C-H>
 
 nnoremap <Tab> <C-W><C-W>
 nnoremap <S-Tab> <C-W>W
-
-""" easymotion
-" Gif config
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-
-" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
-" Without these mappings, `n` & `N` works fine. (These mappings just provide
-" different highlight method and have some other features )
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
-
-let g:EasyMotion_move_highlight = 0
-
 
 """ GUI options
 set guioptions=
@@ -278,4 +281,3 @@ set splitright
 let g:airline_section_b = '%{getcwd()}'
 let g:airline_theme='distinguished'
 let g:airline_detect_modified = 1
-
