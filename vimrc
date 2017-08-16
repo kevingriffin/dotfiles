@@ -1,9 +1,8 @@
-" - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
+
 Plug 'mileszs/ack.vim'
 Plug 'JazzCore/ctrlp-cmatcher'
 Plug 'morhetz/gruvbox'
-Plug 'davidmh/nvim-terminal-runner'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'godlygeek/tabular'
 Plug 'vim-airline/vim-airline'
@@ -27,6 +26,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'bronson/vim-trailing-whitespace'
+
+if has("nvim")
+  Plug 'davidmh/nvim-terminal-runner'
+endif
+
 call plug#end()
 
 set nocompatible
@@ -68,12 +72,6 @@ call expand_region#custom_text_objects('ruby', {
 \ 'aM' :0,
 \ })
 
-""" Airline
-" Always show buffer bar, with numbers for switching with :b <number>
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-
 " Using buffers like tabs in a GUI editor
 set hidden
 nmap <leader>T :enew<cr>
@@ -81,7 +79,24 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 
 nnoremap <leader>p "0p
+nnoremap <leader>y "0y
 nnoremap <leader><leader> <c-^>
+" Use vim as a quick notes database
+nmap \N :cd ~/Dropbox/Notes<CR>:CtrlP ~/Dropbox/Notes<CR>
+
+""" Appearence and terminal settings
+" Dark themes are cool
+colorscheme gruvbox
+set background=dark
+set t_ut=
+
+""" Airline
+
+" Always show buffer bar, with numbers for switching with :b <number>
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
 
 """ The Silver Searcher (from Thoughtbot)
 if executable('ag')
@@ -97,6 +112,7 @@ if executable('ag')
  let g:ackprg = 'ag --vimgrep'
 endif
 
+
 noremap <Leader>a :Ack <cword><cr>
 xnoremap <Leader>a y:Ack <C-r>=fnameescape(@")<CR><CR>
 
@@ -108,9 +124,6 @@ let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 
 """ Keybinds
 nnoremap <leader>q :Bdelete<CR>
-
-" Insert hash rocket
-imap <c-l> <space>=><space>
 
 """"""" MULTIPURPOSE TAB KEY
 
@@ -160,9 +173,6 @@ nnoremap <leader>q :call ToggleQuickfix()<cr>
 
 """""""
 
-" bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
 """ iKnow-specific
 nnoremap <leader>i :cd /data/iknow<CR>:CtrlP /data/iknow<CR>
 nnoremap <leader>e :cd /data/eikaiwa_content<CR>:CtrlP /data/eikaiwa_content<CR>
@@ -178,14 +188,10 @@ map <leader>m :w<CR><Plug>TermRunnerCmd be rspec<CR>
 command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr><Paste>
 command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<cr>
 
-""" Appearence and terminal settings
-" Dark themes are cool
-colorscheme gruvbox
-set background=dark
-set t_ut=
 
 """ Nerd Tree
 let NERDTreeQuitOnOpen = 1
+nnoremap <leader>n :NERDTreeToggle<CR>
 
 """ Multi cursor
 " Stay in multiple cursor mode until canceled, for better movement
