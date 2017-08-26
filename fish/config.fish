@@ -14,8 +14,11 @@ set -x RUBY_GC_HEAP_GROWTH_MAX_SLOTS 300000
 set -x RUBY_GC_MALLOC_LIMIT 64000000
 set -x RUBY_GC_OLDMALLOC_LIMIT 64000000
 
+set PATH /usr/local/bin $PATH {$HOME}/bin
+
 abbr -a be bundle exec
 abbr -a g git
 abbr -a v nvim
 abbr -a l ls -l
 abbr -a ll ls -la
+
