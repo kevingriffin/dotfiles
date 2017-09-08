@@ -26,6 +26,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'easymotion/vim-easymotion'
 
 if has("nvim")
   Plug 'davidmh/nvim-terminal-runner'
@@ -250,6 +251,15 @@ if has('nvim')
   let g:terminal_color_7 = "#a89984"
   let g:terminal_color_15 = "#ebdbb2"
 endif
+
+""" easymotion
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+nmap <Space> <Plug>(easymotion-overwin-f)
+nmap <C-Space> <Plug>(easymotion-overwin-f2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
 
 """ Split navigation
 nnoremap <C-J> <C-W><C-J>
