@@ -1,7 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'mileszs/ack.vim'
-Plug 'JazzCore/ctrlp-cmatcher'
+Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'morhetz/gruvbox'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'godlygeek/tabular'
@@ -121,7 +121,7 @@ xnoremap <Leader>a y:Ack <C-r>=fnameescape(@")<CR><CR>
 let g:ctrlp_max_history = 0
 let g:ctrlp_working_path_mode = 'w'
 let g:ctrlp_max_files=0
-let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 """ Keybinds
 nnoremap <leader>q :Bdelete<CR>
