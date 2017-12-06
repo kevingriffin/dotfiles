@@ -1,6 +1,3 @@
-source /usr/local/share/chruby/chruby.fish
-source /usr/local/share/chruby/auto.fish
-
 set -U GIT_EDITOR nvim
 set -U EDITOR nvim
 
