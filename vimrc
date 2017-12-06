@@ -32,6 +32,10 @@ if has("nvim")
   Plug 'davidmh/nvim-terminal-runner'
 endif
 
+if has("nvim")
+  Plug 'neomake/neomake'
+endif
+
 call plug#end()
 
 set nocompatible
@@ -257,6 +261,17 @@ nnoremap <S-Tab> <C-W>W
 
 """ GUI options
 set guioptions=
+
+""" neomake
+" Run eslint for JavaScript files.
+let g:neomake_javascript_enabled_makers = ['eslint']
+" Prefer local eslint install over global binary.
+" Copied from https://github.com/benjie/neomake-local-eslint.vim/blob/master/ftplugin/javascript.vim
+let s:eslint_path = system('set -gx PATH (npm bin) $PATH ; and which eslint')
+let g:neomake_javascript_eslint_exe = substitute(s:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+
+" Run Neomake on save.
+autocmd BufWritePost * Neomake
 
 """ For TouchBar, but can also be used from Fkeys
 nnoremap <F8> <C-w><C-=>
