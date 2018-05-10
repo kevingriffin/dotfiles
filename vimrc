@@ -79,8 +79,9 @@ nmap <leader>T :enew<cr>
 nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 
-nnoremap <leader>p "0p
-nnoremap <leader>y "0y
+nnoremap <leader>pp "0p<CR>
+nnoremap <leader>PP "0P<CR>
+
 nnoremap <leader><leader> <c-^>
 " Use vim as a quick notes database
 nmap \N :cd ~/Dropbox/Notes<CR>:CtrlP ~/Dropbox/Notes<CR>
@@ -172,23 +173,7 @@ endfunction
 
 nnoremap <leader>q :call ToggleQuickfix()<cr>
 
-"""""""
-
-""" iKnow-specific
-nnoremap <leader>i :cd /data/iknow<CR>:CtrlP /data/iknow<CR>
-nnoremap <leader>e :cd /data/eikaiwa_content<CR>:CtrlP /data/eikaiwa_content<CR>
-nnoremap <leader>ef :cd /data/eikaiwa_content_frontend<<CR>:CtrlP /data/eikaiwa_content_frontend<CR>
-
-""" Ruby
-" Navigate to gems
-nnoremap <leader>g :execute "cd" . $GEM_HOME . "/gems" <CR>
-
 map <leader>m :w<CR><Plug>TermRunnerCmd be rspec<CR>
-
-""" Commands
-command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<cr><Paste>
-command! FindConditionals :normal /\<if\>\|\<unless\>\|\<and\>\|\<or\>\|||\|&&<cr>
-
 
 """ Nerd Tree
 let NERDTreeQuitOnOpen = 1
