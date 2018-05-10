@@ -82,6 +82,9 @@ nmap <leader>bl :ls<CR>
 nnoremap <leader>pp "0p<CR>
 nnoremap <leader>PP "0P<CR>
 
+nnoremap <leader>"" vi""0p
+nnoremap <leader>'' vi'"0p
+
 nnoremap <leader><leader> <c-^>
 " Use vim as a quick notes database
 nmap \N :cd ~/Dropbox/Notes<CR>:CtrlP ~/Dropbox/Notes<CR>
