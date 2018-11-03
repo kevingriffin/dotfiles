@@ -1,0 +1,18 @@
+[pull]
+	ff = only
+	rebase = true
+[push]
+	default = upstream
+[user]
+	name = Kevin Griffin
+	email = me@kevin.jp
+[core]
+	editor = nvim
+[alias]
+	fe = fetch
+	pu = push
+	pl = pull
+	s = status
+	c = checkout
+	d = diff
+	b = branch
