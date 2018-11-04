@@ -1,0 +1,57 @@
+HashKnownHosts no
+StrictHostKeyChecking no
+ServerAliveInterval 60
+ServerAliveCountMax 3
+
+AddKeysToAgent yes
+
+ServerAliveInterval 60
+
+Host *
+  ForwardAgent yes
+
+Host umaru
+  Hostname umaru.kevin.jp
+  User kevin
+  Port 22
+
+Host haru
+  Hostname haru.kevin.jp
+  User kevin
+  Port 22
+
+Host haru-wifi
+  Hostname haru-wifi.kevin.jp
+  User kevin
+  Port 22
+
+Host umaru-local
+  Hostname 192.168.11.3
+  User kevin
+  Port 22
+
+Host haru-local
+  Hostname 192.168.11.9
+  User kevin
+  Port 22
+
+Host haru-wifi-local
+  Hostname 192.168.11.6
+  User kevin
+  Port 22
+
+Host reina
+  Hostname 10.101.150.17
+  User kevin
+
+Host admin
+  Hostname admin.iknow.jp
+  User deploy
+
+Host testing
+  Hostname testing.iknow.jp
+  User deploy
+
+Host stable
+  Hostname stable.iknow.jp
+  User deploy
