@@ -25,23 +25,23 @@ Host haru-wifi
   User kevin
   Port 22
 
-Host umaru-local
-  Hostname 192.168.11.3
+Host umaru-dev
+  Hostname umaru.dev.kevin.jp
   User kevin
   Port 22
 
-Host haru-local
-  Hostname 192.168.11.9
+Host haru-dev
+  Hostname haru.dev.kevin.jp
   User kevin
   Port 22
 
 Host haru-wifi-local
-  Hostname 192.168.11.6
+  Hostname haru-wifi.dev.kevin.jp
   User kevin
   Port 22
 
 Host reina
-  Hostname 10.101.150.17
+  Hostname reina.dev.kevin.jp
   User kevin
 
 Host admin
