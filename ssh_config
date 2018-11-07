@@ -55,3 +55,19 @@ Host testing
 Host stable
   Hostname stable.iknow.jp
   User deploy
+
+Host eikaiwa_jumppoint
+  hostname 52.198.44.181
+  User deploy
+
+Host iknowjp_jumppoint
+  hostname nat1.aws.iknow.jp
+  User deploy
+
+Host 10.3.*
+  StrictHostKeyChecking no
+  ProxyCommand ssh -W %h:%p eikaiwa_jumppoint
+
+Host 10.0.*
+  StrictHostKeyChecking no
+  ProxyCommand ssh -W %h:%p iknowjp_jumppoint
