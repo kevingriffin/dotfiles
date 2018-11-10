@@ -40,8 +40,20 @@ Host haru-wifi-local
   User kevin
   Port 22
 
-Host reina
+Host reina-dev
   Hostname reina.dev.kevin.jp
+  User kevin
+
+Host reina
+  Hostname reina.kevin.jp
+  User kevin
+
+Host tomoyo
+  Hostname tomoyo.kevin.jp
+  User kevin
+
+Host tomoyo-v6
+  Hostname v6.tomoyo.kevin.jp
   User kevin
 
 Host admin
