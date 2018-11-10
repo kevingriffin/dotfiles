@@ -23,3 +23,12 @@ fish/functions/segment.fish
 fish/functions/segment_close.fish
 fish/functions/segment_right.fish
 fish/functions/set_color_custom.fish
+fish/functions/__fzf_cd.fish
+fish/functions/__fzf_complete.fish
+fish/functions/__fzf_complete_preview.fish
+fish/functions/__fzf_find_file.fish
+fish/functions/__fzf_get_dir.fish
+fish/functions/__fzf_open.fish
+fish/functions/__fzf_parse_commandline.fish
+fish/functions/__fzf_reverse_isearch.fish
+fish/functions/__fzfcmd.fish
