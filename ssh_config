@@ -52,10 +52,6 @@ Host tomoyo
   Hostname tomoyo.kevin.jp
   User kevin
 
-Host tomoyo-v6
-  Hostname v6.tomoyo.kevin.jp
-  User kevin
-
 Host admin
   Hostname admin.iknow.jp
   User deploy
