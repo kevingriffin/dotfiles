@@ -15,6 +15,16 @@ Host umaru
   User kevin
   Port 22
 
+Host erika
+  Hostname erika.kevin.jp
+  User kevin
+  Port 22
+
+Host erika-vm
+  Hostname erika.vm.kevin.jp
+  User kevin
+  Port 22
+
 Host haru
   Hostname haru.kevin.jp
   User kevin
@@ -25,27 +35,28 @@ Host haru-wifi
   User kevin
   Port 22
 
-Host umaru-dev
-  Hostname umaru.dev.kevin.jp
+Host umaru-local
+  Hostname umaru.local.kevin.jp
   User kevin
   Port 22
 
-Host haru-dev
-  Hostname haru.dev.kevin.jp
+Host erika-vm-local
+  Hostname erika.vm.local.kevin.jp
+  User kevin
+  Port 22
+
+Host haru-local
+  Hostname haru.local.kevin.jp
   User kevin
   Port 22
 
 Host haru-wifi-local
-  Hostname haru-wifi.dev.kevin.jp
+  Hostname haru-wifi.local.kevin.jp
   User kevin
   Port 22
 
-Host reina-dev
-  Hostname reina.dev.kevin.jp
-  User kevin
-
-Host reina
-  Hostname reina.kevin.jp
+Host reina-local
+  Hostname reina.local.kevin.jp
   User kevin
 
 Host tomoyo
