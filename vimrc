@@ -29,6 +29,7 @@ Plug 'easymotion/vim-easymotion'
 
 if has("nvim")
   Plug 'davidmh/nvim-terminal-runner'
+  set inccommand=nosplit
 endif
 
 call plug#end()
