@@ -40,6 +40,11 @@ Host umaru-local
   User kevin
   Port 22
 
+Host erika-local
+  Hostname erika.local.kevin.jp
+  User kevin
+  Port 22
+
 Host erika-vm-local
   Hostname erika.vm.local.kevin.jp
   User kevin
