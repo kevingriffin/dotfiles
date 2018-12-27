@@ -7,9 +7,6 @@ AddKeysToAgent yes
 
 ServerAliveInterval 60
 
-Host *
-  ForwardAgent yes
-
 Host umaru
   Hostname umaru.kevin.jp
   User kevin
@@ -19,54 +16,65 @@ Host erika
   Hostname erika.kevin.jp
   User kevin
   Port 22
+  ForwardAgent yes
 
 Host erika-vm
   Hostname erika.vm.kevin.jp
   User kevin
   Port 22
+  ForwardAgent yes
 
 Host haru
   Hostname haru.kevin.jp
   User kevin
   Port 22
+  ForwardAgent yes
 
 Host haru-wifi
   Hostname haru-wifi.kevin.jp
   User kevin
   Port 22
+  ForwardAgent yes
 
 Host umaru-local
   Hostname umaru.local.kevin.jp
   User kevin
   Port 22
+  ForwardAgent yes
 
 Host erika-local
   Hostname erika.local.kevin.jp
   User kevin
   Port 22
+  ForwardAgent yes
 
 Host erika-vm-local
   Hostname erika.vm.local.kevin.jp
   User kevin
   Port 22
+  ForwardAgent yes
 
 Host haru-local
   Hostname haru.local.kevin.jp
   User kevin
   Port 22
+  ForwardAgent yes
 
 Host haru-wifi-local
   Hostname haru-wifi.local.kevin.jp
   User kevin
   Port 22
+  ForwardAgent yes
 
 Host reina-local
   Hostname reina.local.kevin.jp
   User kevin
+  ForwardAgent yes
 
 Host tomoyo
   Hostname tomoyo.kevin.jp
   User kevin
+  ForwardAgent yes
 
 Host admin
   Hostname admin.iknow.jp
