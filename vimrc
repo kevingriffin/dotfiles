@@ -26,6 +26,7 @@ Plug 'elzr/vim-json'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'easymotion/vim-easymotion'
+Plug 'leafgarland/typescript-vim'
 
 if has("nvim")
   Plug 'davidmh/nvim-terminal-runner'
