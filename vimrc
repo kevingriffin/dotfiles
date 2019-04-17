@@ -27,6 +27,7 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'easymotion/vim-easymotion'
 Plug 'leafgarland/typescript-vim'
+Plug 'LnL7/vim-nix'
 
 if has("nvim")
   Plug 'davidmh/nvim-terminal-runner'
