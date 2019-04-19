@@ -88,6 +88,18 @@ Host stable
   Hostname stable.iknow.jp
   User deploy
 
+Host leeroy
+  Hostname leeroy.dmm.iknow.jp
+  User root
+  Port 22
+  IdentityFile ~/.ssh/chef-server.pem
+
+Host leeroy-boot
+  Hostname leeroy.dmm.iknow.jp
+  User root
+  Port 2022
+  IdentityFile ~/.ssh/chef-server.pem
+
 Host eikaiwa_jumppoint
   hostname 52.198.44.181
   User deploy
