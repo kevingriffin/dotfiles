@@ -10,3 +10,6 @@ abbr -a v nvim
 abbr -a l ls -l
 abbr -a ll ls -la
 
+if test  (uname) = "Darwin"
+  set PATH (path-reordered)
+end
