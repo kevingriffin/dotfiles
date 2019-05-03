@@ -28,6 +28,8 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'easymotion/vim-easymotion'
 Plug 'leafgarland/typescript-vim'
 Plug 'chr4/nginx.vim'
+Plug 'LnL7/vim-nix'
+Plug 'bumaociyuan/vim-swift'
 
 if has("nvim")
   Plug 'davidmh/nvim-terminal-runner'
