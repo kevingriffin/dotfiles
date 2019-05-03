@@ -1,11 +1,7 @@
 HashKnownHosts no
-StrictHostKeyChecking no
+StrictHostKeyChecking ask
 ServerAliveInterval 60
 ServerAliveCountMax 3
-
-AddKeysToAgent yes
-
-ServerAliveInterval 60
 
 Host umaru
   Hostname umaru.kevin.jp
@@ -40,7 +36,6 @@ Host umaru-local
   Hostname umaru.local.kevin.jp
   User kevin
   Port 22
-  ForwardAgent yes
 
 Host erika-local
   Hostname erika.local.kevin.jp
@@ -71,20 +66,21 @@ Host reina-local
   User kevin
   ForwardAgent yes
 
+Host reina
+  Hostname reina.kevin.jp
+  User kevin
+  ForwardAgent yes
+
 Host tomoyo
   Hostname tomoyo.kevin.jp
   User kevin
   ForwardAgent yes
 
-Host admin
+Host iknow-admin
   Hostname admin.iknow.jp
   User deploy
 
-Host testing
-  Hostname testing.iknow.jp
-  User deploy
-
-Host stable
+Host iknow-stable
   Hostname stable.iknow.jp
   User deploy
 
