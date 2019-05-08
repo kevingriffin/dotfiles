@@ -98,11 +98,11 @@ Host leeroy-boot
 
 Host eikaiwa_jumppoint
   hostname 52.198.44.181
-  User deploy
+  User kgriffin
 
 Host iknowjp_jumppoint
   hostname nat1.aws.iknow.jp
-  User deploy
+  User kgriffin
 
 Host 10.3.*
   StrictHostKeyChecking no
