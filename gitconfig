@@ -6,6 +6,7 @@
 [user]
 	name = Kevin Griffin
 	email = me@kevin.jp
+	signingkey = 7AABE6811CCEED54
 [core]
 	editor = nvim
 [alias]
@@ -21,3 +22,7 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
