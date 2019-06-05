@@ -107,18 +107,18 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
 
-""" The Silver Searcher (from Thoughtbot)
-if executable('ag')
- " Use ag over grep
- set grepprg=ag\ --nogroup\ --nocolor
+""" Use ripgrep
+if executable('rg')
+ " Use rg over grep
+ set grepprg=rg\ --nogroup\ --nocolor
 
- " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
- let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+ " Use rg in CtrlP for listing files.
+ let g:ctrlp_user_command = 'rg --files --color never '
 
- " ag is fast enough that CtrlP doesn't need to cache
+ " rg is fast enough that CtrlP doesn't need to cache
  let g:ctrlp_use_caching = 0
 
- let g:ackprg = 'ag --vimgrep'
+ let g:ackprg = 'rg --vimgrep'
 endif
 
 
