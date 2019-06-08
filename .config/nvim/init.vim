@@ -1,35 +1,47 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'mileszs/ack.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'morhetz/gruvbox'
-Plug 'AndrewRadev/sideways.vim'
-Plug 'godlygeek/tabular'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'moll/vim-bbye'
-Plug 'maxbrunsfeld/vim-emacs-bindings'
-Plug 'terryma/vim-expand-region'
-Plug 'mxw/vim-jsx'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-surround'
-Plug 'nelstrom/vim-textobj-rubyblock'
-Plug 'kana/vim-textobj-user'
-Plug 'tpope/vim-unimpaired'
-Plug 'wesQ3/vim-windowswap'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'ddollar/nerdcommenter'
-Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'elzr/vim-json'
-Plug 'jeetsukumaran/vim-buffergator'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'easymotion/vim-easymotion'
+""" Language and syntax
 Plug 'leafgarland/typescript-vim'
 Plug 'chr4/nginx.vim'
 Plug 'LnL7/vim-nix'
 Plug 'bumaociyuan/vim-swift'
+Plug 'mxw/vim-jsx'
+Plug 'elzr/vim-json'
+
+""" Movement
+Plug 'tpope/vim-unimpaired'
+Plug 'easymotion/vim-easymotion'
+
+""" Text editing augmentation
+Plug 'ddollar/nerdcommenter'
+Plug 'godlygeek/tabular'
+Plug 'maxbrunsfeld/vim-emacs-bindings'
+Plug 'terryma/vim-expand-region'
+Plug 'kana/vim-textobj-user'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'tpope/vim-surround'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'AndrewRadev/sideways.vim'
+
+""" Buffer window and file management
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'wesQ3/vim-windowswap'
+Plug 'moll/vim-bbye'
+Plug 'scrooloose/nerdtree'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'mileszs/ack.vim'
+
+""" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+""" Appearence
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'morhetz/gruvbox'
+
 
 if has("nvim")
   Plug 'davidmh/nvim-terminal-runner'
@@ -88,10 +100,6 @@ nnoremap <leader>PP "0P<CR>
 
 nnoremap <leader>"" vi""0p
 nnoremap <leader>'' vi'"0p
-
-nnoremap <leader><leader> <c-^>
-" Use vim as a quick notes database
-nmap \N :cd ~/Dropbox/Notes<CR>:CtrlP ~/Dropbox/Notes<CR>
 
 """ Appearence and terminal settings
 " Dark themes are cool
