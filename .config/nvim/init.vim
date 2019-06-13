@@ -38,8 +38,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 """ Appearence
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 Plug 'morhetz/gruvbox'
 
 
@@ -64,6 +64,7 @@ set expandtab                        " When I press tab, insert spaces instead
 set shiftwidth=2                     " Specifically, insert 2 spaces
 set tabstop=2
 set mouse=a
+set noshowcmd                        " Don't show ^U etc in the status bar
 
 if has('nvim') && $TERM_PROGRAM == "iTerm.app"
   set termguicolors
@@ -106,14 +107,6 @@ nnoremap <leader>'' vi'"0p
 colorscheme gruvbox
 set background=dark
 set t_ut=
-
-""" Airline
-
-" Always show buffer bar, with numbers for switching with :b <number>
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-
 
 """ Use ripgrep
 if executable('rg')
@@ -304,7 +297,16 @@ nnoremap <F8> :call WindowSwap#EasyWindowSwap()<CR><C-W><C-L> :call WindowSwap#E
 set splitbelow
 set splitright
 
-""" Airline customization
-let g:airline_section_b = '%{getcwd()}'
-let g:airline_theme='distinguished'
-let g:airline_detect_modified = 1
+""" Lightline customization
+set showtabline=2
+let g:lightline#bufferline#show_number  = 1
+let g:lightline#bufferline#shorten_path = 0
+let g:lightline#bufferline#unnamed      = '[No Name]'
+" No need with lightline
+set noshowmode
+
+""" Buffers as tabs
+let g:lightline                  = {}
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [[]] }
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
