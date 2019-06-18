@@ -13,3 +13,8 @@ abbr -a ll ls -la
 if test  (uname) = "Darwin"
   set PATH (path-reordered)
 end
+
+if test  (uname -a | grep "Microsoft")
+  connect-to-weasel-pageant
+  win-dircolors
+end
