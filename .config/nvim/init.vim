@@ -114,7 +114,7 @@ if executable('rg')
  set grepprg=rg\ --nogroup\ --nocolor
 
  " Use rg in CtrlP for listing files.
- let g:ctrlp_user_command = 'rg --files --color never '
+ let g:ctrlp_user_command = 'rg --files --hidden -g="!.git" --color never '
 
  " rg is fast enough that CtrlP doesn't need to cache
  let g:ctrlp_use_caching = 0
