@@ -286,6 +286,7 @@ if exists(":Tabularize")
   vmap <F10> :Tabularize /:\zs<CR>
 endif
 
+nnoremap <leader><leader> <c-^>
 nnoremap <F11> :vs<CR>
 nnoremap <F12> :sp<CR>
 
