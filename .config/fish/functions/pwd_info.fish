@@ -1,28 +1,35 @@
-function pwd_info -a separator -d "Print easy-to-parse information the current working directory"
+function pwd_info -a separator -d "Print info about the current working directory"
     set -l home ~
     set -l git_root (command git rev-parse --show-toplevel ^ /dev/null)
 
-    command pwd -P | awk -v home="$home" -v git_root="$git_root" -v separator="$separator" '
+    echo "$PWD" | awk -v home="$home" -v git_root="$git_root" -v separator="$separator" '
         function base(string) {
             sub(/^\/?.*\//, "", string)
             return string
         }
+
         function dirs(string, printLastName,   prefix, path) {
             len = split(string, parts, "/")
+
             for (i = 1; i < len; i++) {
                 name = substr(parts[i], 1, 1)
+
                 if (parts[i] == "" || name == ".") {
                     continue
                 }
+
                 path = path prefix name
                 prefix = separator
             }
+
             return (printLastName == 1) ? path prefix parts[len] : path
         }
+
         function remove(thisString, fromString) {
             sub(thisString, "", fromString)
             return fromString
         }
+
         {
             if (git_root == home) {
                 git_root = ""

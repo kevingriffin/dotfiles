@@ -1,7 +1,7 @@
-function pwd_is_home
+function pwd_is_home -d "Test if cwd equals or is a child of HOME"
     switch "$PWD"
         case ~{,/\*}
-        case \*
-          return 1
+            return 0
     end
+    return 1
 end
