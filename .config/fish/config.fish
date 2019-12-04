@@ -1,5 +1,5 @@
-set -U GIT_EDITOR nvim
-set -U EDITOR nvim
+set -x GIT_EDITOR nvim
+set -x EDITOR nvim
 set -x PAGER less -R
 
 set -x LC_ALL en_US.UTF-8
