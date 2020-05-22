@@ -42,31 +42,30 @@ Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'morhetz/gruvbox'
 
-
-if has("nvim")
-  Plug 'davidmh/nvim-terminal-runner'
-  set inccommand=nosplit
-endif
+""" Test runners and external enviornment
+Plug 'davidmh/nvim-terminal-runner'
+set inccommand=nosplit
 
 call plug#end()
 
 set nocompatible
-set encoding=utf-8                   " Format of the text in our files (prob not necessary, but should prevent weird errors)
-filetype plugin on                   " Load code that configures vim to work better with whatever we're editing
-filetype indent on                   " Load code that lets vim know when to indent our cursor
+set encoding=utf-8
+filetype plugin on
+filetype indent on
 syntax on
-set nowrap                           " Display long lines as truncated instead of wrapped onto the next line
-set number                           " Show line numbers
-set nohlsearch                         " Highlight all search matches that are on the screen
+set nowrap
+set number
+set nohlsearch
 set showcmd                          " Display info known about the command being edited (eg number of lines highlighted in visual mode)
 set incsearch
-set expandtab                        " When I press tab, insert spaces instead
+set expandtab                        " When tab is pressed, insert spaces instead
 set shiftwidth=2                     " Specifically, insert 2 spaces
 set tabstop=2
 set mouse=a
 set noshowcmd                        " Don't show ^U etc in the status bar
 
-if has('nvim') && $TERM_PROGRAM == "iTerm.app"
+""" Richer colors in supporting terminal emulators
+if $TERM_PROGRAM == "iTerm.app"
   set termguicolors
 endif
 
@@ -90,7 +89,7 @@ call expand_region#custom_text_objects('ruby', {
 \ 'aM' :0,
 \ })
 
-" Using buffers like tabs in a GUI editor
+" Using buffers like tabs in most editors
 set hidden
 nmap <leader>T :enew<cr>
 nmap <leader>bq :bp <BAR> bd #<CR>
@@ -102,8 +101,7 @@ nnoremap <leader>PP "0P<CR>
 nnoremap <leader>"" vi""0p
 nnoremap <leader>'' vi'"0p
 
-""" Appearence and terminal settings
-" Dark themes are cool
+""" Appearence
 colorscheme gruvbox
 set background=dark
 set t_ut=
@@ -122,7 +120,6 @@ if executable('rg')
  let g:ackprg = 'rg --vimgrep'
 endif
 
-
 noremap <Leader>a :Ack <cword><cr>
 xnoremap <Leader>a y:Ack <C-r>=fnameescape(@")<CR><CR>
 
@@ -132,11 +129,7 @@ let g:ctrlp_working_path_mode = 'w'
 let g:ctrlp_max_files=0
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
-""" Keybinds
-nnoremap <leader>q :Bdelete<CR>
-
-""""""" MULTIPURPOSE TAB KEY
-
+""" Tab key
 " Indent if we're at the beginning of a line. Else, do completion.
 function! InsertTabWrapper()
     let col = col('.') - 1
@@ -149,10 +142,7 @@ endfunction
 inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
 
-""""""""
-
-"""""" Toggle quickfix faster
-
+""" Toggle quickfix faster
 function! GetBufferList()
   redir =>buflist
   silent! ls
@@ -178,10 +168,7 @@ function! ToggleQuickfix()
   endif
 endfunction
 
-
 nnoremap <leader>q :call ToggleQuickfix()<cr>
-
-map <leader>m :w<CR><Plug>TermRunnerCmd be rspec<CR>
 
 """ Nerd Tree
 let NERDTreeQuitOnOpen = 1
@@ -192,12 +179,10 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 let g:multi_cursor_exit_from_insert_mode=0
 
 """ Tabularize
-if exists(":Tabularize")
-  nmap <Leader>b= :Tabularize /=<CR>
-  vmap <Leader>b= :Tabularize /=<CR>
-  nmap <Leader>b: :Tabularize /:\zs<CR>
-  vmap <Leader>b: :Tabularize /:\zs<CR>
-endif
+nmap <Leader>b= :Tabularize /=<CR>
+vmap <Leader>b= :Tabularize /=<CR>
+nmap <Leader>b: :Tabularize /:\zs<CR>
+vmap <Leader>b: :Tabularize /:\zs<CR>
 
 """ JSON
 let g:vim_json_syntax_conceal = 0
@@ -210,40 +195,37 @@ nnoremap >, :SidewaysRight<cr>
 let g:jsx_ext_required = 0
 
 """ Terminal colors for neovim
+" dark0 + gray
+let g:terminal_color_0 = "#282828"
+let g:terminal_color_8 = "#928374"
 
-if has('nvim')
-  " dark0 + gray
-  let g:terminal_color_0 = "#282828"
-  let g:terminal_color_8 = "#928374"
+" neurtral_red + bright_red
+let g:terminal_color_1 = "#cc241d"
+let g:terminal_color_9 = "#fb4934"
 
-  " neurtral_red + bright_red
-  let g:terminal_color_1 = "#cc241d"
-  let g:terminal_color_9 = "#fb4934"
+" neutral_green + bright_green
+let g:terminal_color_2 = "#98971a"
+let g:terminal_color_10 = "#b8bb26"
 
-  " neutral_green + bright_green
-  let g:terminal_color_2 = "#98971a"
-  let g:terminal_color_10 = "#b8bb26"
+" neutral_yellow + bright_yellow
+let g:terminal_color_3 = "#d79921"
+let g:terminal_color_11 = "#fabd2f"
 
-  " neutral_yellow + bright_yellow
-  let g:terminal_color_3 = "#d79921"
-  let g:terminal_color_11 = "#fabd2f"
+" neutral_blue + bright_blue
+let g:terminal_color_4 = "#458588"
+let g:terminal_color_12 = "#83a598"
 
-  " neutral_blue + bright_blue
-  let g:terminal_color_4 = "#458588"
-  let g:terminal_color_12 = "#83a598"
+" neutral_purple + bright_purple
+let g:terminal_color_5 = "#b16286"
+let g:terminal_color_13 = "#d3869b"
 
-  " neutral_purple + bright_purple
-  let g:terminal_color_5 = "#b16286"
-  let g:terminal_color_13 = "#d3869b"
+" neutral_aqua + faded_aqua
+let g:terminal_color_6 = "#689d6a"
+let g:terminal_color_14 = "#8ec07c"
 
-  " neutral_aqua + faded_aqua
-  let g:terminal_color_6 = "#689d6a"
-  let g:terminal_color_14 = "#8ec07c"
-
-  " light4 + light1
-  let g:terminal_color_7 = "#a89984"
-  let g:terminal_color_15 = "#ebdbb2"
-endif
+" light4 + light1
+let g:terminal_color_7 = "#a89984"
+let g:terminal_color_15 = "#ebdbb2"
 
 """ easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -266,35 +248,10 @@ nnoremap <S-Tab> <C-W>W
 """ GUI options
 set guioptions=
 
-""" neomake
-" Run eslint for JavaScript files.
-"let g:neomake_javascript_enabled_makers = ['eslint']
-" Prefer local eslint install over global binary.
-" Copied from https://github.com/benjie/neomake-local-eslint.vim/blob/master/ftplugin/javascript.vim
-"let s:eslint_path = system('set -gx PATH (npm bin) $PATH ; and which eslint')
-"let g:neomake_javascript_eslint_exe = substitute(s:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-
-" Run Neomake on save.
-"autocmd BufWritePost * Neomake
-
-""" For TouchBar, but can also be used from Fkeys
-nnoremap <F8> <C-w><C-=>
-if exists(":Tabularize")
-  nmap <F9> :Tabularize /=<CR>
-  vmap <F9> :Tabularize /=<CR>
-  nmap <F10> :Tabularize /:\zs<CR>
-  vmap <F10> :Tabularize /:\zs<CR>
-endif
-
+""" Quick previous file toggle
 nnoremap <leader><leader> <c-^>
-nnoremap <F11> :vs<CR>
-nnoremap <F12> :sp<CR>
 
-nnoremap <F5> :call WindowSwap#EasyWindowSwap()<CR><C-W><C-H> :call WindowSwap#EasyWindowSwap()<CR>
-nnoremap <F6> :call WindowSwap#EasyWindowSwap()<CR><C-W><C-J> :call WindowSwap#EasyWindowSwap()<CR>
-nnoremap <F7> :call WindowSwap#EasyWindowSwap()<CR><C-W><C-K> :call WindowSwap#EasyWindowSwap()<CR>
-nnoremap <F8> :call WindowSwap#EasyWindowSwap()<CR><C-W><C-L> :call WindowSwap#EasyWindowSwap()<CR>
-
+""" More natural split opening
 set splitbelow
 set splitright
 
@@ -303,7 +260,6 @@ set showtabline=2
 let g:lightline#bufferline#show_number  = 1
 let g:lightline#bufferline#shorten_path = 0
 let g:lightline#bufferline#unnamed      = '[No Name]'
-" No need with lightline
 set noshowmode
 
 """ Buffers as tabs
