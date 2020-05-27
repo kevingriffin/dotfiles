@@ -25,8 +25,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'AndrewRadev/sideways.vim'
 
 """ Buffer window and file management
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'wesQ3/vim-windowswap'
 Plug 'moll/vim-bbye'
 Plug 'scrooloose/nerdtree'
@@ -101,6 +101,7 @@ nnoremap <leader>PP "0P<CR>
 nnoremap <leader>"" vi""0p
 nnoremap <leader>'' vi'"0p
 
+
 """ Appearence
 colorscheme gruvbox
 set background=dark
@@ -108,26 +109,17 @@ set t_ut=
 
 """ Use ripgrep
 if executable('rg')
- " Use rg over grep
  set grepprg=rg\ --nogroup\ --nocolor
-
- " Use rg in CtrlP for listing files.
- let g:ctrlp_user_command = 'rg --files --hidden -g="!.git" --color never '
-
- " rg is fast enough that CtrlP doesn't need to cache
- let g:ctrlp_use_caching = 0
-
  let g:ackprg = 'rg --vimgrep'
 endif
 
-noremap <Leader>a :Ack <cword><cr>
-xnoremap <Leader>a y:Ack <C-r>=fnameescape(@")<CR><CR>
+""" fzf
+nmap <C-p> :Files<CR>
+" rg word under cursor
+noremap <Leader>a :Rg <C-R><C-W><CR>
 
-""" CtrlP
-let g:ctrlp_max_history = 0
-let g:ctrlp_working_path_mode = 'w'
-let g:ctrlp_max_files=0
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+" Pass text right through to rg, but I'm not sure I like it yet
+" command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, <bang>0)
 
 """ Tab key
 " Indent if we're at the beginning of a line. Else, do completion.
