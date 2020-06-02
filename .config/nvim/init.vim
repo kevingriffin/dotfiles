@@ -64,6 +64,8 @@ set tabstop=2
 set mouse=a
 set noshowcmd                        " Don't show ^U etc in the status bar
 
+let g:mapleader=" "
+
 """ Richer colors in supporting terminal emulators
 if $TERM_PROGRAM == "iTerm.app"
   set termguicolors
@@ -222,8 +224,8 @@ let g:terminal_color_15 = "#ebdbb2"
 """ easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-nmap <Space> <Plug>(easymotion-overwin-f)
-nmap <C-Space> <Plug>(easymotion-overwin-f2)
+nmap <leader>f <Plug>(easymotion-overwin-f)
+nmap <leader>F <Plug>(easymotion-overwin-f2)
 
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
