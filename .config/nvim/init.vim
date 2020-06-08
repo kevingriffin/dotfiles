@@ -23,6 +23,8 @@ Plug 'tpope/vim-surround'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'AndrewRadev/sideways.vim'
+Plug 'junegunn/vim-peekaboo'
+Plug 'maxbrunsfeld/vim-yankstack'
 
 """ Buffer window and file management
 Plug 'junegunn/fzf'
