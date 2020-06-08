@@ -183,6 +183,10 @@ function! ToggleQuickfix()
   endif
 endfunction
 
+
+" Push selection to file for copy elsewhere (via ssh)
+vmap <Leader>z :w! /tmp/clip<CR>
+
 nnoremap <leader>q :call ToggleQuickfix()<cr>
 
 """ Nerd Tree
