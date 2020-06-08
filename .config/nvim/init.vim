@@ -34,6 +34,7 @@ Plug 'moll/vim-bbye'
 Plug 'scrooloose/nerdtree'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'mileszs/ack.vim'
+Plug 'gillyb/stable-windows'
 
 """ Git
 Plug 'tpope/vim-fugitive'
