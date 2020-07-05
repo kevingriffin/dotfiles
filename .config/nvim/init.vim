@@ -16,11 +16,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'ddollar/nerdcommenter'
 Plug 'godlygeek/tabular'
 Plug 'maxbrunsfeld/vim-emacs-bindings'
-Plug 'terryma/vim-expand-region'
-Plug 'kana/vim-textobj-user'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-surround'
-Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'tpope/vim-tbone'
@@ -35,7 +32,6 @@ Plug 'moll/vim-bbye'
 Plug 'scrooloose/nerdtree'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'mileszs/ack.vim'
-Plug 'gillyb/stable-windows'
 
 """ Git
 Plug 'tpope/vim-fugitive'
@@ -47,12 +43,16 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'morhetz/gruvbox'
 
 """ Test runners and external enviornment
-Plug 'davidmh/nvim-terminal-runner'
+Plug 'tpope/vim-dispatch'
+
 set inccommand=nosplit
 
 call plug#end()
 
 set nocompatible
+set ttyfast
+set lazyredraw
+set nornu
 set encoding=utf-8
 filetype plugin on
 filetype indent on
@@ -81,19 +81,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 if has("autocmd")
   filetype indent plugin on
 endif
-
-call expand_region#custom_text_objects({
-\ 'ii' :0,
-\ 'ai' :0,
-\ })
-call expand_region#custom_text_objects('ruby', {
-\ 'ib' :0,
-\ 'ab' :0,
-\ 'im' :0,
-\ 'am' :0,
-\ 'iM' :0,
-\ 'aM' :0,
-\ })
 
 " Using buffers like tabs in most editors
 set hidden
