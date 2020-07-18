@@ -18,12 +18,12 @@
 	d = diff
 	b = branch
   r = rebase -i
-  addf       = !git add $(git ls-files --modified --others --exclude-standard | fzf -m)
-	resetf     = !git reset $@ $(git diff --name-only --cached | fzf +s | awk '{print $1}')
-  checkoutf  = !git checkout -- $(git ls-files --modified --exclude-standard | fzf -m)
-  fixupf     = !git commit --fixup=$(git log --pretty=oneline --abbrev-commit | fzf +s | awk '{print $1'})
-	difff      = !git diff -- $(git ls-files --modified --exclude-standard | fzf -m)
-  showc      = !git show $(git log --pretty=oneline --abbrev-commit | fzf +s | awk '{print $1}')
+  addf      = !git add $(git ls-files --modified --others --exclude-standard | fzf -m)
+  resetf    = !git reset $@ $(git diff --name-only --cached | fzf +s -m | awk '{print $1}')
+  checkoutf = !git checkout -- $(git ls-files --modified --exclude-standard | fzf -m)
+  fixupf    = !git commit --fixup=$(git log --pretty=oneline --abbrev-commit | fzf +s | awk '{print $1'})
+  difff     = !git diff -- $(git ls-files --modified --exclude-standard | fzf -m)
+  showc     = !git show $(git log --pretty=oneline --abbrev-commit | fzf +s | awk '{print $1}')
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
