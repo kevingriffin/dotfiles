@@ -14,7 +14,7 @@ Plug 'easymotion/vim-easymotion'
 
 """ Text editing augmentation
 Plug 'ddollar/nerdcommenter'
-Plug 'godlygeek/tabular'
+Plug 'junegunn/vim-easy-align'
 Plug 'maxbrunsfeld/vim-emacs-bindings'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-surround'
@@ -23,6 +23,7 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'tpope/vim-tbone'
 Plug 'junegunn/vim-peekaboo'
 Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'mbbill/undotree'
 
 """ Buffer window and file management
 Plug 'junegunn/fzf'
@@ -35,6 +36,7 @@ Plug 'mileszs/ack.vim'
 
 """ Git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 
 """ Appearence
@@ -114,6 +116,39 @@ noremap <Leader>a :Rg <C-R><C-W><CR>
 " Pass text right through to rg, but I'm not sure I like it yet
 " command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, <bang>0)
 
+nnoremap <leader><CR> :Buffers<CR>
+nnoremap <leader>l    :Lines<CR>
+nnoremap <leader>m    :Marks<CR>
+nnoremap <leader>wi   :Windows<CR>
+nnoremap <leader>/    :History/<CR>
+nnoremap <leader>:    :History:<CR>
+
+
+"" Load things into quickfix (like with :Rg)
+"" and then open each one in a new tab,
+"" split vertically or horizontally
+
+function! QuickFixOpenAll(orientation)
+  if empty(getqflist())
+    return
+  endif
+  let modifier = "tabe"
+  let s:prev_val = ""
+  for d in getqflist()
+    let s:curr_val = bufname(d.bufnr)
+    if (s:curr_val != s:prev_val)
+      exec modifier." " . s:curr_val
+      let modifier = a:orientation . ' sb'
+    endif
+    let s:prev_val = s:curr_val
+  endfor
+endfunction
+
+command! QuickFixOpenAllVertical call QuickFixOpenAll('vert')
+command! QuickFixOpenAllHorizontal call QuickFixOpenAll('')
+nnoremap <leader>oav :QuickFixOpenAllVertical<cr>
+nnoremap <leader>oah :QuickFixOpenAllHorizontal<cr>
+
 function! s:list_buffers()
   redir => list
   silent ls
@@ -184,11 +219,9 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 " Stay in multiple cursor mode until canceled, for better movement
 let g:multi_cursor_exit_from_insert_mode=0
 
-""" Tabularize
-nmap <Leader>b= :Tabularize /=<CR>
-vmap <Leader>b= :Tabularize /=<CR>
-nmap <Leader>b: :Tabularize /:\zs<CR>
-vmap <Leader>b: :Tabularize /:\zs<CR>
+""" EasyAlign
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 """ JSON
 let g:vim_json_syntax_conceal = 0
