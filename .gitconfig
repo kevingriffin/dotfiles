@@ -1,22 +1,27 @@
 [pull]
-	ff = only
-	rebase = true
+  ff = only
+  rebase = true
 [push]
-	default = upstream
+  default = upstream
 [user]
-	name = Kevin Griffin
-	email = me@kevin.jp
-	signingkey = 7AABE6811CCEED54
+  name = Kevin Griffin
+  email = me@kevin.jp
+  signingkey = 7AABE6811CCEED54
 [core]
-	editor = nvim
+  editor = nvim
+  pager  = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  features = side-by-side line-numbers
 [alias]
-	fe = fetch
-	pu = push
-	pl = pull
-	s = status
-	c = checkout
-	d = diff
-	b = branch
+  fe = fetch
+  pu = push
+  pl = pull
+  s = status
+  c = checkout
+  d = diff
+  b = branch
   r = rebase -i
   addf      = !git add $(git ls-files --modified --others --exclude-standard | fzf -m)
   resetf    = !git reset $@ $(git diff --name-only --cached | fzf +s -m | awk '{print $1}')
@@ -25,16 +30,16 @@
   difff     = !git diff -- $(git ls-files --modified --exclude-standard | fzf -m)
   showc     = !git show $(git log --pretty=oneline --abbrev-commit | fzf +s | awk '{print $1}')
 [filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
 [commit]
-	gpgsign = true
+  gpgsign = true
 [gpg]
-	program = gpg
+  program = gpg
 [rebase]
-autosquash = true
+  autosquash = true
 [diff]
   tool = nvimdiff
 [merge]
