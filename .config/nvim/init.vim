@@ -7,6 +7,7 @@ Plug 'LnL7/vim-nix'
 Plug 'bumaociyuan/vim-swift'
 Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json'
+Plug 'slim-template/vim-slim'
 
 """ Movement
 Plug 'tpope/vim-unimpaired'
