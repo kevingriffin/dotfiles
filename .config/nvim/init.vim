@@ -8,6 +8,7 @@ Plug 'bumaociyuan/vim-swift'
 Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json'
 Plug 'slim-template/vim-slim'
+Plug 'dense-analysis/ale'
 
 """ Movement
 Plug 'tpope/vim-unimpaired'
@@ -34,6 +35,7 @@ Plug 'moll/vim-bbye'
 Plug 'scrooloose/nerdtree'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'mileszs/ack.vim'
+Plug 'Valloric/ListToggle'
 
 """ Git
 Plug 'tpope/vim-fugitive'
@@ -118,7 +120,6 @@ noremap <Leader>a :Rg <C-R><C-W><CR>
 " command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, <bang>0)
 
 nnoremap <leader><CR> :Buffers<CR>
-nnoremap <leader>l    :Lines<CR>
 nnoremap <leader>m    :Marks<CR>
 nnoremap <leader>wi   :Windows<CR>
 nnoremap <leader>/    :History/<CR>
@@ -180,37 +181,8 @@ endfunction
 inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
 
-""" Toggle quickfix faster
-function! GetBufferList()
-  redir =>buflist
-  silent! ls
-  redir END
-  return buflist
-endfunction
-
-function! BufferIsOpen(bufname)
-  let buflist = GetBufferList()
-  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(bufnum) != -1
-      return 1
-    endif
-  endfor
-  return 0
-endfunction
-
-function! ToggleQuickfix()
-  if BufferIsOpen("Quickfix List")
-    cclose
-  else
-    cope
-  endif
-endfunction
-
-
 " Push selection to file for copy elsewhere (via ssh)
 vmap <Leader>z :w! /tmp/clip<CR>
-
-nnoremap <leader>q :call ToggleQuickfix()<cr>
 
 """ Nerd Tree
 let NERDTreeQuitOnOpen = 1
