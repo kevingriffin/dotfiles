@@ -184,6 +184,18 @@ inoremap <s-tab> <c-n>
 " Push selection to file for copy elsewhere (via ssh)
 vmap <Leader>z :w! /tmp/clip<CR>
 
+
+" Resizing splits
+nnoremap <leader>s <C-W>=
+
+if bufwinnr(1)
+  map <S-J> <C-W>+
+  map <S-K> <C-W>-
+  map <S-L> <C-W>>
+  map <S-H> <C-W><
+endif
+
+
 """ Nerd Tree
 let NERDTreeQuitOnOpen = 1
 nnoremap <leader>n :NERDTreeToggle<CR>
