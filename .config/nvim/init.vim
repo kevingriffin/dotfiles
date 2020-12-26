@@ -5,10 +5,12 @@ Plug 'leafgarland/typescript-vim'
 Plug 'chr4/nginx.vim'
 Plug 'LnL7/vim-nix'
 Plug 'bumaociyuan/vim-swift'
-Plug 'mxw/vim-jsx'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'elzr/vim-json'
 Plug 'slim-template/vim-slim'
 Plug 'dense-analysis/ale'
+Plug 'vim-scripts/vis'
+Plug 'HerringtonDarkholme/yats.vim'
 
 """ Movement
 Plug 'tpope/vim-unimpaired'
@@ -189,10 +191,10 @@ vmap <Leader>z :w! /tmp/clip<CR>
 nnoremap <leader>s <C-W>=
 
 if bufwinnr(1)
-  map <S-J> <C-W>+
-  map <S-K> <C-W>-
-  map <S-L> <C-W>>
-  map <S-H> <C-W><
+  nmap <S-A-J> <C-W>+
+  nmap <S-A-K> <C-W>-
+  nmap <S-A-L> <C-W>>
+  nmap <S-A-H> <C-W><
 endif
 
 
