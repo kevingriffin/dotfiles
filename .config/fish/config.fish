@@ -41,12 +41,11 @@ abbr -a g git
 abbr -a v nvim
 abbr -a l ls -l
 abbr -a ll ls -la
+abbr -a ddl cd $HOME/Downloads
+abbr -a icl cd "$HOME/Library/Mobile\ Documents/com~apple~CloudDocs"
+abbr -a tmp cd "$HOME/tmp"
+abbr -a src cd "$HOME/src"
 
 if test  (uname) = "Darwin"
   set PATH (path-reordered)
-end
-
-if test  (uname -a | grep "Microsoft")
-  connect-to-weasel-pageant
-  win-dircolors
 end
