@@ -45,6 +45,11 @@ abbr -a ddl cd $HOME/Downloads
 abbr -a icl cd "$HOME/Library/Mobile\ Documents/com~apple~CloudDocs"
 abbr -a tmp cd "$HOME/tmp"
 abbr -a src cd "$HOME/src"
+abbr -a dot cd "$HOME/dotfiles"
+abbr -a ik cd "$HOME/src/iknow"
+abbr -a ec cd "$HOME/src/eikaiwa_content"
+abbr -a ecf cd "$HOME/src/eikaiwa_content_frontend"
+abbr -a ecr cd "$HOME/src/eikaiwa-realtime"
 
 if test  (uname) = "Darwin"
   set PATH (path-reordered)
