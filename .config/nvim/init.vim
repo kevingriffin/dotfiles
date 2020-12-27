@@ -202,6 +202,23 @@ endif
 
 """ Fern
 nnoremap <leader>n :Fern . -drawer -toggle<CR>
+function! FernInit() abort
+  " nmap <buffer> n <Plug>(fern-action-new-path)
+  nmap <buffer> d <Plug>(fern-action-remove)
+  nmap <buffer> M <Plug>(fern-action-rename)
+  nmap <buffer> H <Plug>(fern-action-hidden-toggle)
+  " nmap <buffer> r <Plug>(fern-action-reload)
+  " nmap <buffer> k <Plug>(fern-action-mark-toggle)j
+  nmap <buffer> s <Plug>(fern-action-open:split)
+  nmap <buffer> v <Plug>(fern-action-open:vsplit)
+  " nmap <buffer><nowait> < <Plug>(fern-action-leave)
+  " nmap <buffer><nowait> > <Plug>(fern-action-enter)
+endfunction
+
+augroup FernGroup
+  autocmd!
+  autocmd FileType fern call FernInit()
+augroup END
 
 """ Multi cursor
 " Stay in multiple cursor mode until canceled, for better movement
