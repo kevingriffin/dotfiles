@@ -34,7 +34,9 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'wesQ3/vim-windowswap'
 Plug 'moll/vim-bbye'
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
+Plug 'lambdalisue/fern.vim'
+Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'mileszs/ack.vim'
 Plug 'Valloric/ListToggle'
@@ -198,9 +200,8 @@ if bufwinnr(1)
 endif
 
 
-""" Nerd Tree
-let NERDTreeQuitOnOpen = 1
-nnoremap <leader>n :NERDTreeToggle<CR>
+""" Fern
+nnoremap <leader>n :Fern . -drawer -toggle<CR>
 
 """ Multi cursor
 " Stay in multiple cursor mode until canceled, for better movement
