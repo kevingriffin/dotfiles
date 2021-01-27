@@ -28,13 +28,13 @@ Plug 'tpope/vim-tbone'
 Plug 'junegunn/vim-peekaboo'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mbbill/undotree'
+Plug 'ojroques/vim-oscyank'
 
 """ Buffer window and file management
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'wesQ3/vim-windowswap'
 Plug 'moll/vim-bbye'
-" Plug 'scrooloose/nerdtree'
 Plug 'lambdalisue/fern.vim'
 Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'jeetsukumaran/vim-buffergator'
@@ -97,12 +97,10 @@ nmap <leader>T :enew<cr>
 nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 
+nnoremap <leader>y "0y<CR>
+
 nnoremap <leader>pp "0p<CR>
 nnoremap <leader>PP "0P<CR>
-
-nnoremap <leader>"" vi""0p
-nnoremap <leader>'' vi'"0p
-
 
 """ Appearence
 colorscheme gruvbox
@@ -128,7 +126,6 @@ nnoremap <leader>m    :Marks<CR>
 nnoremap <leader>wi   :Windows<CR>
 nnoremap <leader>/    :History/<CR>
 nnoremap <leader>:    :History:<CR>
-
 
 "" Load things into quickfix (like with :Rg)
 "" and then open each one in a new tab,
@@ -171,6 +168,9 @@ command! BD call fzf#run(fzf#wrap({
   \ 'sink*': { lines -> s:delete_buffers(lines) },
   \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
   \ }))
+
+""" vim-oscyank
+vnoremap <leader>cp :OSCYank<CR>
 
 """ Tab key
 " Indent if we're at the beginning of a line. Else, do completion.
