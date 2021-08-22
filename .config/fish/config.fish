@@ -39,8 +39,6 @@ set -g theme_display_sudo_user yes
 abbr -a be bundle exec
 abbr -a g git
 abbr -a v nvim
-abbr -a l ls -l
-abbr -a ll ls -la
 abbr -a ddl cd $HOME/Downloads
 abbr -a icl cd "$HOME/Library/Mobile\ Documents/com~apple~CloudDocs"
 abbr -a tmp cd "$HOME/tmp"
@@ -51,11 +49,12 @@ abbr -a ec cd "$HOME/src/eikaiwa_content"
 abbr -a ecf cd "$HOME/src/eikaiwa_content_frontend"
 abbr -a ecr cd "$HOME/src/eikaiwa-realtime"
 abbr -a cfiles "(git ls-files --modified --exclude-standard | fzf -m)"
-abbr -a afiles "(git ls-files --others   --exclude-standard | fzf -m)"
+abbr -a afiles "(git ls-files --others --exclude-standard | fzf -m)"
 abbr -a e "exa"
+abbr -a l "exa -l --octal-permissions"
+abbr -a ll "exa -a -l --octal-permissions"
 abbr -a ea "exa -a"
 abbr -a er "exa -R -L2"
-abbr -a el "exa -l --octal-permissions"
 abbr -a era "exa -R -a -L2"
 abbr -a ela "exa -la --octal-permissions"
 abbr -a elr "exa --octal-permissions -@ -a -l -R -L2 -I.git"
