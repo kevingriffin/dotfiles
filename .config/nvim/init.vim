@@ -1,13 +1,11 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 """ Language and syntax
-Plug 'leafgarland/typescript-vim'
 Plug 'chr4/nginx.vim'
 Plug 'LnL7/vim-nix'
 Plug 'bumaociyuan/vim-swift'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'elzr/vim-json'
-Plug 'slim-template/vim-slim'
 Plug 'dense-analysis/ale'
 Plug 'vim-scripts/vis'
 Plug 'HerringtonDarkholme/yats.vim'
@@ -24,8 +22,6 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'AndrewRadev/sideways.vim'
-Plug 'tpope/vim-tbone'
-Plug 'junegunn/vim-peekaboo'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mbbill/undotree'
 Plug 'ojroques/vim-oscyank'
@@ -43,16 +39,14 @@ Plug 'Valloric/ListToggle'
 
 """ Git
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
+Plug 'iberianpig/tig-explorer.vim'
+Plug 'rbgrouleff/bclose.vim'
 
 """ Appearence
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'morhetz/gruvbox'
-
-""" Test runners and external enviornment
-Plug 'tpope/vim-dispatch'
 
 set inccommand=nosplit
 
@@ -91,6 +85,8 @@ if has("autocmd")
   filetype indent plugin on
 endif
 
+:nmap <F1> <nop>
+
 " Using buffers like tabs in most editors
 set hidden
 nmap <leader>T :enew<cr>
@@ -101,6 +97,7 @@ nnoremap <leader>y "0y<CR>
 
 nnoremap <leader>pp "0p<CR>
 nnoremap <leader>PP "0P<CR>
+
 
 """ Appearence
 colorscheme gruvbox
