@@ -50,7 +50,17 @@ abbr -a ik cd "$HOME/src/iknow"
 abbr -a ec cd "$HOME/src/eikaiwa_content"
 abbr -a ecf cd "$HOME/src/eikaiwa_content_frontend"
 abbr -a ecr cd "$HOME/src/eikaiwa-realtime"
+abbr -a e "exa"
+abbr -a ea "exa -a"
+abbr -a er "exa -R -L2"
+abbr -a el "exa -l --octal-permissions"
+abbr -a era "exa -R -a -L2"
+abbr -a ela "exa -la --octal-permissions"
+abbr -a elr "exa --octal-permissions -@ -a -l -R -L2 -I.git"
 
 if test  (uname) = "Darwin"
   set PATH (path-reordered)
 end
+
+zoxide init fish | source
+mcfly  init fish | source
