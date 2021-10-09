@@ -10,6 +10,5 @@ function branch_auth --argument branch username
 
   set server "$branch.api.branch.eikaiwa.dmm.com"
   set password (op-get-login "replace-auth" "team_engoo" | tail -n1)
-  echo $server $username $password
   replace_auth "$server" "$username" "$password"
 end
