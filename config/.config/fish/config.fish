@@ -38,6 +38,7 @@ set -g theme_display_sudo_user yes
 
 abbr -a be bundle exec
 abbr -a g git
+abbr -a gf git ls-files --modified --others --exclude-standard
 abbr -a v nvim
 abbr -a ddl cd $HOME/Downloads
 abbr -a icl cd "$HOME/Library/Mobile\ Documents/com~apple~CloudDocs"
@@ -59,9 +60,6 @@ abbr -a era "exa -R -a -L2"
 abbr -a ela "exa -la --no-permissions --octal-permissions"
 abbr -a elr "exa --no-permissions --octal-permissions -@ -a -l -R -L2 -I.git"
 
-if test  (uname) = "Darwin"
+if test (uname) = "Darwin"
   set PATH (path-reordered)
 end
-
-zoxide init fish | source
-mcfly  init fish | source
