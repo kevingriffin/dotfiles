@@ -6,7 +6,7 @@ function replace_auth --argument server username password client_auth
 
     echo -n 'Authorization: Bearer '
 
-    http -j post "https://$server/api/oauth/token" \
+    xh -j post "https://$server/api/oauth/token" \
       grant_type=password scope=(replace_scopes $server) \
       username="$username" password="$password" \
       brand="5a4657f2-e151-4c48-9cce-000000000006" \
