@@ -4,6 +4,6 @@ function op-get-login --argument login team
     set team "my"
   end
 
-  set -lx OP_SESSION_$team (op signin --raw $team)
-  op get item "$login" | jq '.details.fields[] | select(.designation=="username").value, select(.designation=="password").value' | sed 's/"//g'
+  set token "$(op signin --raw --account $team)"
+  op --session "$token" item get --format json "$login" | jq '.fields[] | select(.id=="username").value, select(.id=="password").value' | sed 's/"//g'
 end

@@ -3,5 +3,5 @@ function replace_scopes --argument server
   if not test -n "$server"
     set server "api.engoo.com"
   end
-  xh "https://$server/api/types/abilities" | jq -r '.data | map(.enum_constant) | join(" ")'
+  xh "https://$server/api/types/abilities" | jq -r '.data.members | map(.enum_constant) | join(" ")'
 end

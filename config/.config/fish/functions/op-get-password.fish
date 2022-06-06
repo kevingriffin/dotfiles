@@ -4,7 +4,7 @@ function op-get-password --argument login team
     set team "my"
   end
 
-  set -lx OP_SESSION_$team (op signin --raw $team)
+  set token "$(op signin --raw --account $team)"
 
-	op get item "$login" | jq '.details.password' | sed 's/"//g'
+	op --session "$token" item get "$login" | jq 'fields.password' | sed 's/"//g'
 end
