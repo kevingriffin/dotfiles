@@ -6,6 +6,12 @@ vim.api.nvim_set_keymap('n', ']d',       '<CMD>lua vim.diagnostic.goto_next()<CR
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 
+local lsp_status = require('lsp-status')
+lsp_status.config({
+  diagnostics = false,
+  status_symbol = ''
+})
+
 local common = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -18,33 +24,37 @@ local common = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>rn',      '<CMD>lua vim.lsp.buf.rename()<CR>',          opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>ca',      '<CMD>lua vim.lsp.buf.code_action()<CR>',     opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>fo',      '<CMD>lua vim.lsp.buf.formatting()<CR>',      opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>fs',     '<CMD>Telescope lsp_document_symbols<CR>',    opts)
 
   vim.diagnostic.config({
     virtual_text = false,
     signs        = false,
+    underline    = false
   })
 end
 
 
 local servers    = {}
-local candidates = { 'solargraph' }
+local candidates = { ["solargraph"] = 'solargraph', ["sourcekit-lsp"] = 'sourcekit' }
 local coq        = require "coq"
 local lspconfig  = require "lspconfig"
 
-for _, candidate in pairs(candidates) do
-  if vim.fn.executable(candidate) then
+for executable, candidate in pairs(candidates) do
+  if vim.fn.executable(executable) then
     table.insert(servers, candidate)
   end
 end
 
 local on_attach = function(client, bufnr)
   common(client, bufnr)
+  lsp_status.on_attach(client)
 end
 
 local ts_on_attach = function(client, bufnr)
   common(client, bufnr)
   client.resolved_capabilities.document_formatting       = false
   client.resolved_capabilities.document_range_formatting = false
+  lsp_status.on_attach(client)
 end
 
 for _, lsp in pairs(servers) do
@@ -79,17 +89,7 @@ null_ls.setup({
   sources = null_ls_sources,
 
   on_attach = function(client, bufnr)
-    -- format on save
-    if client.resolved_capabilities.document_formatting then
-      for key, cmd in pairs(vim.api.nvim_get_autocmds({ group = group, buffer = bufnr })) do
-        vim.api.nvim_del_autocmd(cmd.id)
-      end
-      vim.api.nvim_create_autocmd('BufWritePre', {
-        group = group,
-        buffer = bufnr,
-        callback = vim.lsp.buf.formatting_sync,
-      })
-    end
+    lsp_status.on_attach(client)
   end,
 });
 
@@ -117,7 +117,7 @@ vim.g.coq_settings = {
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable                            = true,
-    disable                           = {},
+    disable                           = { 'swift' },
     additional_vim_regex_highlighting = false,
   },
   indent = {
@@ -135,6 +135,31 @@ require'nvim-treesitter.configs'.setup {
       node_decremental  = "grm",
     },
   },
+  textobjects = {
+    swap = {
+      enable = true,
+      swap_next = {
+        ['>,'] = '@parameter.inner',
+      },
+      swap_previous = {
+        ['<,'] = '@parameter.inner',
+      },
+    },
+    select = {
+      enable = true,
+
+      -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
+
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+  }
 }
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }

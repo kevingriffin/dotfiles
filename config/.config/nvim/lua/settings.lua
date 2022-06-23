@@ -26,7 +26,6 @@ vim.o.ttyfast               = true
 vim.o.lazyredraw            = true
 vim.o.cursorline            = false
 vim.o.cursorcolumn          = false
-vim.o.relativenumber        = false
 vim.g.cursorhold_updatetime = 100
 
 
@@ -56,6 +55,9 @@ vim.o.splitright = true
 
 -- Leave this to filetype.nvim
 vim.g.did_load_filetypes = 1
+
+-- Swift needs this for some reason
+vim.cmd('autocmd Filetype swift setlocal softtabstop=2 shiftwidth=2 tabstop=2')
 
 -- Strip trailing whitespace on save
 vim.cmd('autocmd BufWritePre * :%s/\\s\\+$//e')

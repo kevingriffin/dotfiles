@@ -15,7 +15,6 @@ Plug 'ddollar/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'AndrewRadev/sideways.vim'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mbbill/undotree'
 Plug 'ojroques/vim-oscyank'
@@ -40,11 +39,14 @@ Plug 'nvim-lualine/lualine.nvim'
 
 --- LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp-status.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 Plug 'lewis6991/impatient.nvim'
 Plug 'ms-jpq/coq_nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 vim.call('plug#end')
 
@@ -54,16 +56,11 @@ vim.keymap.set('n', '<Leader>n', ':Fern . -drawer -toggle<CR>')
 vim.cmd [[
 nnoremap <leader>n :Fern . -drawer -toggle<CR>
 function! FernInit() abort
-  " nmap <buffer> n <Plug>(fern-action-new-path)
   nmap <buffer> d <Plug>(fern-action-remove)
   nmap <buffer> M <Plug>(fern-action-rename)
   nmap <buffer> H <Plug>(fern-action-hidden-toggle)
-  " nmap <buffer> r <Plug>(fern-action-reload)
-  " nmap <buffer> k <Plug>(fern-action-mark-toggle)j
   nmap <buffer> s <Plug>(fern-action-open:split)
   nmap <buffer> v <Plug>(fern-action-open:vsplit)
-  " nmap <buffer><nowait> < <Plug>(fern-action-leave)
-  " nmap <buffer><nowait> > <Plug>(fern-action-enter)
 endfunction
 
 augroup FernGroup
@@ -73,7 +70,16 @@ augroup END
 ]]
 
 -- Telescope
-require('telescope').setup {}
+require('telescope').setup {
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-Down>"] = require('telescope.actions').cycle_history_next,
+        ["<C-Up>"]   = require('telescope.actions').cycle_history_prev,
+      },
+    },
+  }
+}
 
 -- Search files for visually selected text
 function vim.getVisualSelection()
@@ -96,23 +102,22 @@ vim.keymap.set('v', '<Leader>r', function()
 	tb.live_grep({ default_text = text })
 end, { noremap = true, silent = true })
 
-vim.keymap.set('n', '<C-p>', '<CMD>Telescope find_files<CR>')
-vim.keymap.set('n', '<Leader>a', ":lua require'telescope.builtin'.grep_string")
-vim.keymap.set('n', '<Leader><CR>', '<CMD>Telescope buffers<CR>')
-vim.keymap.set('n', '<Leader>gg',   '<CMD>Telescope live_grep<CR>')
-vim.keymap.set('n', '<Leader>m', ":lua require'telescope.builtin'.marks{}<CR>")
-vim.keymap.set('n', '<Leader>/', ":lua require'telescope.builtin'.search_history{}<CR>")
-vim.keymap.set('n', '<Leader>:', ":lua require'telescope.builtin'.command_history{}<CR>")
+local telescope_builtin = require 'telescope.builtin'
+
+vim.keymap.set('n', '<C-p>',        telescope_builtin.find_files)
+vim.keymap.set('n', '<C-S-p>',      telescope_builtin.resume)
+vim.keymap.set('n', '<Leader>a',    telescope_builtin.grep_string)
+vim.keymap.set('n', '<Leader><CR>', telescope_builtin.buffers)
+vim.keymap.set('n', '<Leader>lg',   telescope_builtin.live_grep)
+vim.keymap.set('n', '<Leader>m',    telescope_builtin.marks)
+vim.keymap.set('n', '<Leader>/',    telescope_builtin.search_history)
+vim.keymap.set('n', '<Leader>:',    telescope_builtin.command_history)
 
 -- EasyMotion
 vim.g.EasyMotion_do_mapping = 0
 vim.g.EasyMotion_smartcase  = 1
 vim.keymap.set('n', '<Leader>fi', '<Plug>(easymotion-overwin-f)')
 vim.keymap.set('n', '<Leader>ff', '<Plug>(easymotion-overwin-f2)')
-
--- Sideways.vim
-vim.keymap.set('n', ',<', ':SidewaysLeft<CR>')
-vim.keymap.set('n', ',>', ':SidewaysRight<CR>')
 
 -- EasyAlign
 vim.keymap.set('v', 'ga', '<Plug>(EasyAlign)')
@@ -123,6 +128,14 @@ vim.keymap.set('v', 'ga', '<Plug>(EasyAlign)')
 vim.g.multi_cursor_exit_from_insert_mode = 0
 
 -- Lualine
+lsp_status = require('lsp-status')
+
+function LspStatus()
+  if #vim.lsp.buf_get_clients() < 1 then return "" end
+
+  return lsp_status.status()
+end
+
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -139,15 +152,15 @@ require('lualine').setup {
     lualine_b = {'branch', 'diff', 'diagnostics'},
     lualine_c = {'filename'},
     lualine_x = {},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_y = {'LspStatus()', 'location'},
+    lualine_z = {}
   },
   inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
     lualine_c = {'filename'},
-    lualine_x = {'location', 'encoding', 'filetype'},
-    lualine_y = {},
+    lualine_x = {},
+    lualine_y = {'location'},
     lualine_z = {}
   },
   tabline = {},

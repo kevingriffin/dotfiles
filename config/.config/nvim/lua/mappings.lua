@@ -5,6 +5,9 @@ vim.keymap.set('n', '<Leader>bb', '<C-^>')
 vim.keymap.set('n', '<Tab>',   '<C-W><C-W>')
 vim.keymap.set('n', '<S-Tab>', '<C-W>W')
 
+-- Easier fix indentation
+vim.keymap.set('n', '<Leader>=', '<C-W>=')
+
 -- Split nativation
 vim.keymap.set('n', '<C-J>', '<C-W><C-J>')
 vim.keymap.set('n', '<C-K>', '<C-W><C-K>')
@@ -24,6 +27,7 @@ vim.keymap.set('n', 'cf', ':let @+ = expand("%")<CR>')
 
 -- Replace inner selections
 vim.keymap.set('n', '<Leader>ri\'', 'vi\'p')
+vim.keymap.set('n', '<Leader>ri"', 'vi\"p')
 
 -- Push selection to file for copy elsewhere (via ssh)
 vim.keymap.set('v', '<Leader>z', ':w! /tmp/clip<CR>')
