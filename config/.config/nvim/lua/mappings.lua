@@ -5,7 +5,10 @@ vim.keymap.set('n', '<Leader>bb', '<C-^>')
 vim.keymap.set('n', '<Tab>',   '<C-W><C-W>')
 vim.keymap.set('n', '<S-Tab>', '<C-W>W')
 
--- Easier fix indentation
+-- Exit terminal a bit easier
+vim.keymap.set('t', '<C-\\><C-\\>', '<C-\\><C-N>')
+
+-- Easier balance windows
 vim.keymap.set('n', '<Leader>=', '<C-W>=')
 
 -- Split nativation

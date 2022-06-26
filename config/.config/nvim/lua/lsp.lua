@@ -1,5 +1,5 @@
 local opts = { noremap=true, silent=true }
-vim.api.nvim_set_keymap('n', '<space>e', '<CMD>lua vim.diagnostic.open_float()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<Space>e', '<CMD>lua vim.diagnostic.open_float()<CR>', opts)
 vim.api.nvim_set_keymap('n', '[d',       '<CMD>lua vim.diagnostic.goto_prev()<CR>',  opts)
 vim.api.nvim_set_keymap('n', ']d',       '<CMD>lua vim.diagnostic.goto_next()<CR>',  opts)
 
@@ -20,7 +20,7 @@ local common = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>gr',      '<CMD>lua vim.lsp.buf.references()<CR>',      opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>gi',      '<CMD>lua vim.lsp.buf.implementation()<CR>',  opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>D',       '<CMD>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space><space>', '<CMD>lua vim.lsp.buf.hover()<CR>',           opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space><Space>', '<CMD>lua vim.lsp.buf.hover()<CR>',           opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>rn',      '<CMD>lua vim.lsp.buf.rename()<CR>',          opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>ca',      '<CMD>lua vim.lsp.buf.code_action()<CR>',     opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>fo',      '<CMD>lua vim.lsp.buf.formatting()<CR>',      opts)
@@ -64,11 +64,13 @@ for _, lsp in pairs(servers) do
 end
 
 -- Special settings for TypeScript
-if vim.fn.executable('tsserver') then
-  lspconfig['tsserver'].setup(coq.lsp_ensure_capabilities({
-    on_attach = ts_on_attach,
-  }))
-end
+require("typescript").setup({
+    disable_commands = false,
+    debug            = false,
+    server           = coq.lsp_ensure_capabilities(
+                        { on_attach = ts_on_attach}
+                       )
+})
 
 -- null-ls
 local null_ls = require('null-ls')
@@ -120,6 +122,9 @@ require'nvim-treesitter.configs'.setup {
     disable                           = { 'swift' },
     additional_vim_regex_highlighting = false,
   },
+  autotag = {
+    enable = true
+  },
   indent = {
     enable  = false,
     disable = {},
@@ -152,7 +157,6 @@ require'nvim-treesitter.configs'.setup {
       lookahead = true,
 
       keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",
