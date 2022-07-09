@@ -20,6 +20,9 @@ Plug 'mbbill/undotree'
 Plug 'ojroques/vim-oscyank'
 Plug 'andymass/vim-matchup'
 Plug 'windwp/nvim-autopairs'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-entire'
+Plug 'machakann/vim-sandwich'
 
 --- Buffer window and file management
 Plug 'nvim-telescope/telescope.nvim'
@@ -31,6 +34,7 @@ Plug 'wesQ3/vim-windowswap'
 Plug 'moll/vim-bbye'
 Plug 'Valloric/ListToggle'
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kevinhwang91/nvim-bqf'
 
 --- Git
 Plug 'tpope/vim-fugitive'
@@ -62,6 +66,21 @@ Plug 'antoinemadec/FixCursorHold.nvim'
 
 vim.call('plug#end')
 
+-- vim sandwich
+
+-- Add leader to mappings to avoid slowing down vim's
+-- substitue ('s') mapping
+vim.g.sandwich_no_default_key_mappings          = true
+vim.g.operator_sandwich_no_default_key_mappings = true
+
+vim.keymap.set('',  '<Leader>sa', '<Plug>(operator-sandwich-add)')
+vim.keymap.set('x', '<Leader>sd', '<Plug>(operator-sandwich-delete)')
+vim.keymap.set('x', '<Leader>sr', '<Plug>(operator-sandwich-replace)')
+vim.keymap.set('n', '<Leader>sd', '<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)')
+vim.keymap.set('n', '<Leader>sr', '<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)')
+vim.keymap.set('n', '<Leader>sd', '<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)')
+vim.keymap.set('n', '<Leader>sr', '<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)')
+
 -- autopairs
 require("nvim-autopairs").setup {
   map_cr                    = false,
@@ -83,7 +102,16 @@ require("toggleterm").setup{
 vim.keymap.set('n', '<Leader>t', '<CMD>exe v:count1 . "ToggleTerm"<CR>')
 
 -- nvim-tree
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  renderer = {
+    icons = {
+      show = {
+        folder = false
+      }
+    }
+  }
+})
+
 vim.keymap.set('n', '<Leader>i', ':NvimTreeToggle<CR>')
 
 --bwap
@@ -94,21 +122,23 @@ vim.keymap.set('n', '<Leader>nd', ':DeleteBuffer<CR>')
 -- Telescope
 require('telescope').setup {
   defaults = {
-    extensions = {
-      fzf = {
-        fuzzy                   = true,                    -- false will only do exact matching
-        override_generic_sorter = true,  -- override the generic sorter
-        override_file_sorter    = true,     -- override the file sorter
-        case_mode               = "smart_case",        -- or "ignore_case" or "respect_case"
-      }
-    },
     mappings = {
       i = {
         ["<C-Down>"] = require('telescope.actions').cycle_history_next,
         ["<C-Up>"]   = require('telescope.actions').cycle_history_prev,
+        ["<C-j>"]    = require('telescope.actions').move_selection_next,
+        ["<C-k>"]    = require('telescope.actions').move_selection_previous,
       },
     },
-  }
+  },
+  extensions = {
+    fzf = {
+      fuzzy                   = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter    = true,     -- override the file sorter
+      case_mode               = "smart_case",        -- or "ignore_case" or "respect_case"
+    }
+  },
 }
 
 require('telescope').load_extension('fzf')

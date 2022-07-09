@@ -40,7 +40,7 @@ local coq        = require "coq"
 local lspconfig  = require "lspconfig"
 
 for executable, candidate in pairs(candidates) do
-  if vim.fn.executable(executable) then
+  if vim.fn.executable(executable) == 1 then
     table.insert(servers, candidate)
   end
 end
@@ -64,13 +64,13 @@ for _, lsp in pairs(servers) do
 end
 
 -- Special settings for TypeScript
-require("typescript").setup({
-    disable_commands = false,
-    debug            = false,
-    server           = coq.lsp_ensure_capabilities(
-                        { on_attach = ts_on_attach}
-                       )
-})
+if vim.fn.executable('tsserver') == 1 and vim.fn.executable('node_modules/.bin/tsc') == 1 then
+  require("typescript").setup({
+      disable_commands = false,
+      debug            = false,
+      server           = coq.lsp_ensure_capabilities({on_attach = ts_on_attach})
+  })
+end
 
 -- null-ls
 local null_ls = require('null-ls')
@@ -119,7 +119,7 @@ vim.g.coq_settings = {
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable                            = true,
-    disable                           = { 'swift' },
+    disable                           = { 'swift', 'markdown' },
     additional_vim_regex_highlighting = false,
   },
   autotag = {
