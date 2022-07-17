@@ -23,6 +23,7 @@ Plug 'windwp/nvim-autopairs'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
 Plug 'machakann/vim-sandwich'
+Plug 'windwp/nvim-ts-autotag'
 
 --- Buffer window and file management
 Plug 'nvim-telescope/telescope.nvim'
