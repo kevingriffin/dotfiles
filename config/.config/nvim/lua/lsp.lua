@@ -112,6 +112,7 @@ vim.g.coq_settings = {
   },
 -- Don't overrwrite my binds for moving between splits
   keymap = {
+    recommended = false,
     jump_to_mark = ''
   }
 }
