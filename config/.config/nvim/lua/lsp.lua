@@ -130,6 +130,7 @@ require'nvim-treesitter.configs'.setup {
     disable = {},
   },
   ensure_installed = "all",
+  sync_install = (vim.loop.os_uname().sysname == "Linux" and true or false),
   ignore_install   = { "phpdoc" }, -- broken
   incremental_selection = {
     enable = true,
