@@ -58,6 +58,7 @@ Plug 'ms-jpq/coq_nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'jose-elias-alvarez/typescript.nvim'
+Plug 'https://gitlab.com/yorickpeterse/nvim-dd.git'
 
 -- Terminals and tests
 Plug 'akinsho/toggleterm.nvim'
@@ -81,6 +82,17 @@ vim.keymap.set('n', '<Leader>sd', '<Plug>(operator-sandwich-delete)<Plug>(operat
 vim.keymap.set('n', '<Leader>sr', '<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)')
 vim.keymap.set('n', '<Leader>sd', '<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)')
 vim.keymap.set('n', '<Leader>sr', '<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)')
+
+
+-- nvim-dd
+
+-- Load diagnostis instantly in normal
+-- mode but not in insert mode, to avoid
+-- trouble.nvim breaking coq_nvim
+require('dd').setup({
+  timeout = 0
+})
+
 
 -- autopairs
 local npairs = require('nvim-autopairs')
