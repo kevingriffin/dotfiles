@@ -18,7 +18,7 @@ vim.g.mapleader      = " "
 vim.o.hidden = true
 
 -- Performance related
-vim.o.timeoutlen            = 500
+vim.o.timeoutlen            = 1500
 vim.o.wrap                  = false
 vim.o.hlsearch              = false
 vim.o.foldenable            = false
