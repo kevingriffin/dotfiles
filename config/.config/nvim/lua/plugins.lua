@@ -219,7 +219,7 @@ end, { noremap = true, silent = true })
 
 local telescope_builtin = require 'telescope.builtin'
 
-vim.keymap.set('n', '<C-p>',        telescope_builtin.find_files)
+vim.keymap.set('n', '<C-t>',        telescope_builtin.find_files)
 vim.keymap.set('n', '<C-S-p>',      telescope_builtin.resume)
 vim.keymap.set('n', '<Leader>a',    telescope_builtin.grep_string)
 vim.keymap.set('n', '<Leader><CR>', telescope_builtin.buffers)
