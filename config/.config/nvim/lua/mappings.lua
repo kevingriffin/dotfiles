@@ -25,6 +25,9 @@ if vim.fn.bufwinnr(1) then
   vim.keymap.set('n', '<S-A-H>', '<C-W><')
 end
 
+-- Copy to the system clipboard easily
+vim.keymap.set('v', '<Leader>y', '"+y')
+
 -- Put the current file path onto the system clipboard
 vim.keymap.set('n', 'cf', ':let @+ = expand("%")<CR>')
 
