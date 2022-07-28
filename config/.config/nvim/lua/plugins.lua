@@ -1,6 +1,9 @@
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.local/share/nvim/plugged')
 
+-- Mini
+Plug 'echasnovski/mini.nvim'
+
 --- Language and syntax
 Plug 'nathom/filetype.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
@@ -67,6 +70,30 @@ Plug 'akinsho/toggleterm.nvim'
 Plug 'antoinemadec/FixCursorHold.nvim'
 
 vim.call('plug#end')
+
+-- Mini
+
+local sessions = require('mini.sessions')
+sessions.setup({
+  autoread  = false,
+  autowrite = false,
+  directory = '~/.local/share/nvim/sessions',
+  force = { read = false, write = true, delete = false }
+})
+
+-- use the path as a session file, but don't put
+-- literal slashes into the filename to make it easier
+-- to use
+local writeSession = function()
+  path = string.gsub(vim.fn.getcwd(), "/", "_")
+  sessions.write(path)
+end
+
+vim.keymap.set('n', '<Leader>se', writeSession)
+
+require('mini.starter').setup({
+  evaluate_single = true
+})
 
 -- vim sandwich
 
