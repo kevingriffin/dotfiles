@@ -185,10 +185,10 @@ require('telescope').setup {
   },
   extensions = {
     fzf = {
-      fuzzy                   = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter    = true,     -- override the file sorter
-      case_mode               = "smart_case",        -- or "ignore_case" or "respect_case"
+      fuzzy                   = true,
+      override_generic_sorter = true,
+      override_file_sorter    = true,
+      case_mode               = "smart_case"
     }
   },
 }
@@ -227,10 +227,6 @@ vim.keymap.set('n', '<Leader>ff',   telescope_builtin.live_grep)
 vim.keymap.set('n', '<Leader>m',    telescope_builtin.marks)
 vim.keymap.set('n', '<Leader>/',    telescope_builtin.search_history)
 vim.keymap.set('n', '<Leader>:',    telescope_builtin.command_history)
-
--- function leap_bidirectional()
---   require'leap'.leap { ['target-windows'] = { vim.api.nvim_get_current_win() } }
--- end
 
 require'hop'.setup()
 vim.keymap.set('n', 'z',     '<CMD>HopChar2<CR>', {silent = true})
