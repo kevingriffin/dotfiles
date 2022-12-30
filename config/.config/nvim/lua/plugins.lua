@@ -27,6 +27,8 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
 Plug 'machakann/vim-sandwich'
 Plug 'windwp/nvim-ts-autotag'
+Plug 'sitiom/nvim-numbertoggle'
+Plug 'smjonas/inc-rename.nvim'
 
 --- Buffer window and file management
 Plug 'nvim-telescope/telescope.nvim'
@@ -39,6 +41,8 @@ Plug 'moll/vim-bbye'
 Plug 'Valloric/ListToggle'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kevinhwang91/nvim-bqf'
+Plug 'cbochs/grapple.nvim'
+Plug "cbochs/portal.nvim"
 
 --- Git
 Plug 'tpope/vim-fugitive'
@@ -113,7 +117,7 @@ vim.keymap.set('n', '<Leader>sr', '<Plug>(operator-sandwich-replace)<Plug>(opera
 
 -- nvim-dd
 
--- Load diagnostis instantly in normal
+-- Load diagnostics instantly in normal
 -- mode but not in insert mode, to avoid
 -- trouble.nvim breaking coq_nvim
 require('dd').setup({
@@ -173,6 +177,10 @@ neogit.setup {
     diffview = true
   }
 }
+
+-- inc rename
+require("inc_rename").setup()
+vim.keymap.set("n", "<Leader>rn", ":IncRename ")
 
 -- toggleterm
 require("toggleterm").setup{
@@ -251,13 +259,44 @@ vim.keymap.set('n', '<C-S-p>',      telescope_builtin.resume)
 vim.keymap.set('n', '<Leader>a',    telescope_builtin.grep_string)
 vim.keymap.set('n', '<Leader><CR>', telescope_builtin.buffers)
 vim.keymap.set('n', '<Leader>ff',   telescope_builtin.live_grep)
-vim.keymap.set('n', '<Leader>m',    telescope_builtin.marks)
 vim.keymap.set('n', '<Leader>/',    telescope_builtin.search_history)
 vim.keymap.set('n', '<Leader>:',    telescope_builtin.command_history)
+vim.keymap.set('n', '<Leader>k',    telescope_builtin.quickfix)
+vim.keymap.set('n', '<Leader>j',    telescope_builtin.jumplist)
+vim.keymap.set('n', '""',           telescope_builtin.registers)
 
 require'hop'.setup()
 vim.keymap.set('n', 'z',     '<CMD>HopChar2<CR>', {silent = true})
 vim.keymap.set('n', '<S-z>', '<CMD>HopPattern<CR>', {silent = true})
+
+-- Grapple
+require("grapple").setup({
+    scope = require("grapple").resolvers.git
+})
+vim.keymap.set("n", "<Leader>M", require("grapple").toggle, {})
+vim.keymap.set("n", "<Leader>m", require("grapple").popup_tags, {})
+
+-- Harpoon
+-- require("telescope").load_extension('harpoon')
+-- vim.keymap.set("n", "<Leader>M", require("harpoon.mark").add_file, {})
+-- vim.keymap.set("n", "<Leader>m", '<CMD>:Telescope harpoon marks<CR>', {})
+-- vim.keymap.set("n", "<C-m>", require("harpoon.ui").toggle_quick_menu, {})
+
+
+-- Portal
+require("portal").setup({
+    ---@type "debug" | "info" | "warn" | "error"
+    log_level = "warn",
+
+    ---The default queries used when searching the jumplist. An entry can
+    ---be a name of a registered query item, an anonymous predicate, or
+    ---a well-formed query item. See Queries section for more information.
+    ---@type Portal.QueryLike[]
+    query = { "modified", "different", "valid", "grapple"},
+})
+
+vim.keymap.set("n", "<leader>o", require("portal").jump_backward, {})
+vim.keymap.set("n", "<leader>i", require("portal").jump_forward, {})
 
 -- EasyAlign
 vim.keymap.set('v', 'ga', '<Plug>(EasyAlign)')

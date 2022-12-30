@@ -52,8 +52,8 @@ end
 
 local ts_on_attach = function(client, bufnr)
   common(client, bufnr)
-  client.resolved_capabilities.document_formatting       = false
-  client.resolved_capabilities.document_range_formatting = false
+  client.server_capabilities.document_formatting       = false
+  client.server_capabilities.document_range_formatting = false
   lsp_status.on_attach(client)
 end
 
