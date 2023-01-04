@@ -36,7 +36,7 @@ Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'cmake -S. -Bbuild -
 Plug 'kyoh86/telescope-windows.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'rbgrouleff/bclose.vim'
-Plug 'wesQ3/vim-windowswap'
+Plug 'sindrets/winshift.nvim'
 Plug 'moll/vim-bbye'
 Plug 'Valloric/ListToggle'
 Plug 'kyazdani42/nvim-tree.lua'
@@ -123,6 +123,18 @@ vim.keymap.set('n', '<Leader>sr', '<Plug>(operator-sandwich-replace)<Plug>(opera
 require('dd').setup({
   timeout = 0
 })
+
+
+-- winshift
+require("winshift").setup()
+vim.keymap.set('',  '<C-W><C-M>', '<Cmd>WinShift<CR>')
+vim.keymap.set('',  '<C-W>m', '<Cmd>WinShift<CR>')
+
+vim.keymap.set('',  '<C-W>X',  '<Cmd>WinShift swap<CR>')
+vim.keymap.set('',  '<C-M-H>', '<Cmd>WinShift left<CR>')
+vim.keymap.set('',  '<C-M-J>', '<Cmd>WinShift down<CR>')
+vim.keymap.set('',  '<C-M-K>', '<Cmd>WinShift up<CR>')
+vim.keymap.set('',  '<C-M-L>', '<Cmd>WinShift right<CR>')
 
 
 -- autopairs
