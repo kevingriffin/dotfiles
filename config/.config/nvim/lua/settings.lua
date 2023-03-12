@@ -56,8 +56,16 @@ vim.o.splitright = true
 -- Leave this to filetype.nvim
 vim.g.did_load_filetypes = 1
 
+local autocmd = vim.api.nvim_create_autocmd
+
 -- Swift needs this for some reason
-vim.cmd('autocmd Filetype swift setlocal softtabstop=2 shiftwidth=2 tabstop=2')
+autocmd('Filetype', { pattern = { 'Swift' }, command = 'setlocal softtabstop=2 shiftwidth=2 tabstop=2'})
 
 -- Strip trailing whitespace on save
-vim.cmd('autocmd BufWritePre * :%s/\\s\\+$//e')
+autocmd('BufWritePre', { pattern = '', command = ':%s/\\s\\+$//e' })
+
+-- Start with an empty jumplist, to avoid jumps to other projects
+autocmd('VimEnter', { pattern = '*', command = 'clearjumps' })
+
+-- https://github.com/tree-sitter/tree-sitter-ruby/issues/230
+autocmd('Filetype', { pattern = { 'Ruby' }, command = 'setlocal indentkeys-=.'})

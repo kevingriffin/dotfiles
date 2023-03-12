@@ -16,7 +16,6 @@ Plug 'maxbrunsfeld/vim-emacs-bindings'
 --- Text editing augmentation
 Plug 'ddollar/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
-Plug 'bronson/vim-trailing-whitespace'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mbbill/undotree'
@@ -29,6 +28,7 @@ Plug 'machakann/vim-sandwich'
 Plug 'windwp/nvim-ts-autotag'
 Plug 'sitiom/nvim-numbertoggle'
 Plug 'smjonas/inc-rename.nvim'
+Plug 'Wansmer/treesj'
 
 --- Buffer window and file management
 Plug 'nvim-telescope/telescope.nvim'
@@ -66,6 +66,8 @@ Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'jose-elias-alvarez/typescript.nvim'
 Plug 'https://gitlab.com/yorickpeterse/nvim-dd.git'
+Plug 'RRethy/nvim-treesitter-endwise'
+Plug 'nvim-treesitter/playground'
 
 -- Terminals and tests
 Plug 'akinsho/toggleterm.nvim'
@@ -97,6 +99,16 @@ vim.keymap.set('n', '<Leader>se', writeSession)
 
 require('mini.starter').setup({
   evaluate_single = true
+})
+
+require('mini.trailspace').setup({})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+    pattern = { '*' },
+    callback = function()
+        MiniTrailspace.trim()
+        MiniTrailspace.trim_last_lines()
+    end
 })
 
 -- vim sandwich
@@ -190,6 +202,16 @@ neogit.setup {
   }
 }
 
+-- treesj
+local tsj = require('treesj')
+
+
+tsj.setup({
+  use_default_keymaps = false,
+})
+
+vim.keymap.set('n', '<Leader>\\', tsj.toggle)
+
 -- inc rename
 require("inc_rename").setup()
 vim.keymap.set("n", "<Leader>rn", ":IncRename ")
@@ -211,7 +233,7 @@ require("nvim-tree").setup({
   }
 })
 
-vim.keymap.set('n', '<Leader>i', ':NvimTreeToggle<CR>')
+vim.keymap.set('n', '<Leader>v', ':NvimTreeToggle<CR>')
 
 --bwap
 vim.keymap.set('n', '<Leader>ne', ':NavBuffer<CR>')

@@ -23,7 +23,7 @@ local common = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space><Space>', '<CMD>lua vim.lsp.buf.hover()<CR>',           opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>rn',      '<CMD>lua vim.lsp.buf.rename()<CR>',          opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>ca',      '<CMD>lua vim.lsp.buf.code_action()<CR>',     opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>fo',      '<CMD>lua vim.lsp.buf.formatting()<CR>',      opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>fo',      '<CMD>lua vim.lsp.buf.format()<CR>',          opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>fs',     '<CMD>Telescope lsp_document_symbols<CR>',    opts)
 
   vim.diagnostic.config({
@@ -35,7 +35,7 @@ end
 
 
 local servers    = {}
-local candidates = { ["solargraph"] = 'solargraph', ["sourcekit-lsp"] = 'sourcekit' }
+local candidates = { ["ruby-lsp"] = 'ruby_ls', ["sourcekit-lsp"] = 'sourcekit' }
 local coq        = require "coq"
 local lspconfig  = require "lspconfig"
 
@@ -77,6 +77,7 @@ local null_ls = require('null-ls')
 
 local null_ls_sources = {
   null_ls.builtins.code_actions.gitsigns,
+  require("typescript.extensions.null-ls.code-actions")
 }
 
 if vim.fn.executable("node_modules/.bin/eslint") == 1 then
@@ -129,6 +130,9 @@ require'nvim-treesitter.configs'.setup {
   indent = {
     enable  = true,
     disable = {},
+  },
+  endwise = {
+    enable = true,
   },
   ensure_installed = "all",
   sync_install = (vim.loop.os_uname().sysname == "Linux" and true or false),
