@@ -77,6 +77,9 @@ Plug 'antoinemadec/FixCursorHold.nvim'
 
 vim.call('plug#end')
 
+-- impatient
+require'impatient'
+
 -- Mini
 
 local sessions = require('mini.sessions')
