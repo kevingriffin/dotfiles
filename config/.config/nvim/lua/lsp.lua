@@ -12,7 +12,16 @@ lsp_status.config({
   status_symbol = ''
 })
 
+
+
 local common = function(client, bufnr)
+  local dynamic_workspace_symbols = function()
+    local telescope_builtin = require('telescope.builtin')
+    telescope_builtin.lsp_dynamic_workspace_symbols({ symbols = { "constant", "class", "interface", "function", "method" } })
+  end
+
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>gd',      '<CMD>lua vim.lsp.buf.definition()<CR>',      opts)
@@ -25,6 +34,7 @@ local common = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>ca',      '<CMD>lua vim.lsp.buf.code_action()<CR>',     opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Space>fo',      '<CMD>lua vim.lsp.buf.format()<CR>',          opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader>fs',     '<CMD>Telescope lsp_document_symbols<CR>',    opts)
+  vim.keymap.set('n', '<Leader>fa', dynamic_workspace_symbols, bufopts)
 
   vim.diagnostic.config({
     virtual_text = false,
@@ -35,7 +45,7 @@ end
 
 
 local servers    = {}
-local candidates = { ["ruby-lsp"] = 'ruby_ls', ["sourcekit-lsp"] = 'sourcekit' }
+local candidates = { ["solargraph"] = 'solargraph', ["sourcekit-lsp"] = 'sourcekit' }
 local coq        = require "coq"
 local lspconfig  = require "lspconfig"
 
@@ -121,7 +131,7 @@ vim.g.coq_settings = {
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable                            = true,
-    disable                           = { 'swift', 'markdown' },
+    disable                           = { },
     additional_vim_regex_highlighting = false,
   },
   autotag = {

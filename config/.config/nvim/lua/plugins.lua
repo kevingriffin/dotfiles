@@ -32,7 +32,7 @@ Plug 'Wansmer/treesj'
 
 --- Buffer window and file management
 Plug 'nvim-telescope/telescope.nvim'
-Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' })
+Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 Plug 'kyoh86/telescope-windows.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'rbgrouleff/bclose.vim'
@@ -41,7 +41,6 @@ Plug 'moll/vim-bbye'
 Plug 'Valloric/ListToggle'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kevinhwang91/nvim-bqf'
-Plug 'cbochs/grapple.nvim'
 Plug "cbochs/portal.nvim"
 
 --- Git
@@ -236,14 +235,21 @@ require("nvim-tree").setup({
   }
 })
 
-vim.keymap.set('n', '<Leader>v', ':NvimTreeToggle<CR>')
+vim.keymap.set('n', '<Leader>v',   ':NvimTreeToggle<CR>')
+vim.keymap.set('n', '<Leader>fr', ':NvimTreeFindFile<CR>')
 
 --bwap
 vim.keymap.set('n', '<Leader>ne', ':NavBuffer<CR>')
 vim.keymap.set('n', '<Leader>nn', ':SwapBuffer<CR>')
 vim.keymap.set('n', '<Leader>nd', ':DeleteBuffer<CR>')
 
--- Telescope
+-- Telescope{
+local fzf_opts = {
+  fuzzy                   = true,
+  override_generic_sorter = true,
+  override_file_sorter    = true,
+  case_mode               = "smart_case"
+}
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -252,16 +258,17 @@ require('telescope').setup {
         ["<C-Up>"]   = require('telescope.actions').cycle_history_prev,
         ["<C-j>"]    = require('telescope.actions').move_selection_next,
         ["<C-k>"]    = require('telescope.actions').move_selection_previous,
+        ["<C-f>"]    = require('telescope.actions').to_fuzzy_refine,
       },
     },
   },
   extensions = {
-    fzf = {
-      fuzzy                   = true,
-      override_generic_sorter = true,
-      override_file_sorter    = true,
-      case_mode               = "smart_case"
-    }
+    fzf = fzf_opts
+  },
+  pickers = {
+    lsp_dynamic_workspace_symbols = {
+      sorter = require('telescope').extensions.fzf.native_fzf_sorter(fzf_opts)
+    },
   },
 }
 
@@ -303,37 +310,14 @@ vim.keymap.set('n', '<Leader>j',    telescope_builtin.jumplist)
 vim.keymap.set('n', '""',           telescope_builtin.registers)
 
 require'hop'.setup()
-vim.keymap.set('n', 'z',     '<CMD>HopChar2<CR>', {silent = true})
-vim.keymap.set('n', '<S-z>', '<CMD>HopPattern<CR>', {silent = true})
-
--- Grapple
-require("grapple").setup({
-    scope = require("grapple").resolvers.git
-})
-vim.keymap.set("n", "<Leader>M", require("grapple").toggle, {})
-vim.keymap.set("n", "<Leader>m", require("grapple").popup_tags, {})
-
--- Harpoon
--- require("telescope").load_extension('harpoon')
--- vim.keymap.set("n", "<Leader>M", require("harpoon.mark").add_file, {})
--- vim.keymap.set("n", "<Leader>m", '<CMD>:Telescope harpoon marks<CR>', {})
--- vim.keymap.set("n", "<C-m>", require("harpoon.ui").toggle_quick_menu, {})
-
+vim.keymap.set('n', '<S-a>', '<CMD>HopPattern<CR>',  {silent = true})
 
 -- Portal
 require("portal").setup({
-    ---@type "debug" | "info" | "warn" | "error"
-    log_level = "warn",
-
-    ---The default queries used when searching the jumplist. An entry can
-    ---be a name of a registered query item, an anonymous predicate, or
-    ---a well-formed query item. See Queries section for more information.
-    ---@type Portal.QueryLike[]
-    query = { "modified", "different", "valid", "grapple"},
 })
 
-vim.keymap.set("n", "<leader>o", require("portal").jump_backward, {})
-vim.keymap.set("n", "<leader>i", require("portal").jump_forward, {})
+vim.keymap.set("n", "<Leader>i", "<cmd>Portal jumplist backward<cr>")
+vim.keymap.set("n", "<Leader>o", "<cmd>Portal jumplist forward<cr>")
 
 -- EasyAlign
 vim.keymap.set('v', 'ga', '<Plug>(EasyAlign)')
@@ -394,9 +378,6 @@ vim.keymap.set('n', '<Leader>d', '<CMD>TroubleToggle<CR>')
 
 -- matchup
 vim.g.matchup_matchparen_offscreen = { scrolloff = 1 }
-
--- impatient
-require'impatient'.enable_profile()
 
 -- coq
 vim.g.coq_settings = { auto_start = 'shut-up' }
