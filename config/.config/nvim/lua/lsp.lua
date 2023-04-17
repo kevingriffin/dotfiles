@@ -1,7 +1,5 @@
 local opts = { noremap=true, silent=true }
 vim.api.nvim_set_keymap('n', '<Space>e', '<CMD>lua vim.diagnostic.open_float()<CR>', opts)
-vim.api.nvim_set_keymap('n', '[d',       '<CMD>lua vim.diagnostic.goto_prev()<CR>',  opts)
-vim.api.nvim_set_keymap('n', ']d',       '<CMD>lua vim.diagnostic.goto_next()<CR>',  opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -11,8 +9,6 @@ lsp_status.config({
   diagnostics = false,
   status_symbol = ''
 })
-
-
 
 local common = function(client, bufnr)
   local dynamic_workspace_symbols = function()
@@ -62,8 +58,8 @@ end
 
 local ts_on_attach = function(client, bufnr)
   common(client, bufnr)
-  client.server_capabilities.document_formatting       = false
-  client.server_capabilities.document_range_formatting = false
+  client.server_capabilities.documentFormattingProvider       = false
+  client.server_capabilities.documentRangeFormattingProvider  = false
   lsp_status.on_attach(client)
 end
 
@@ -127,59 +123,3 @@ vim.g.coq_settings = {
     jump_to_mark = ''
   }
 }
-
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable                            = true,
-    disable                           = { },
-    additional_vim_regex_highlighting = false,
-  },
-  autotag = {
-    enable = true
-  },
-  indent = {
-    enable  = true,
-    disable = {},
-  },
-  endwise = {
-    enable = true,
-  },
-  ensure_installed = "all",
-  sync_install = (vim.loop.os_uname().sysname == "Linux" and true or false),
-  ignore_install   = { "phpdoc" }, -- broken
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection    = "gnn",
-      node_incremental  = "grn",
-      scope_incremental = "grc",
-      node_decremental  = "grm",
-    },
-  },
-  textobjects = {
-    swap = {
-      enable = true,
-      swap_next = {
-        ['>,'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<,'] = '@parameter.inner',
-      },
-    },
-    select = {
-      enable = true,
-
-      -- Automatically jump forward to textobj, similar to targets.vim
-      lookahead = true,
-
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-      },
-    },
-  }
-}
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }

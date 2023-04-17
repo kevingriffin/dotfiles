@@ -1,85 +1,53 @@
-local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.local/share/nvim/plugged')
-
--- Mini
-Plug 'echasnovski/mini.nvim'
-
---- Language and syntax
-Plug 'nathom/filetype.nvim'
-Plug 'nvim-treesitter/nvim-treesitter'
-
---- Movement
-Plug 'tpope/vim-unimpaired'
-Plug 'phaazon/hop.nvim'
-Plug 'maxbrunsfeld/vim-emacs-bindings'
-
---- Text editing augmentation
-Plug 'ddollar/nerdcommenter'
-Plug 'junegunn/vim-easy-align'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'maxbrunsfeld/vim-yankstack'
-Plug 'mbbill/undotree'
-Plug 'ojroques/vim-oscyank'
-Plug 'andymass/vim-matchup'
-Plug 'windwp/nvim-autopairs'
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-entire'
-Plug 'machakann/vim-sandwich'
-Plug 'windwp/nvim-ts-autotag'
-Plug 'sitiom/nvim-numbertoggle'
-Plug 'smjonas/inc-rename.nvim'
-Plug 'Wansmer/treesj'
-
---- Buffer window and file management
-Plug 'nvim-telescope/telescope.nvim'
-Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
-Plug 'kyoh86/telescope-windows.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'rbgrouleff/bclose.vim'
-Plug 'sindrets/winshift.nvim'
-Plug 'moll/vim-bbye'
-Plug 'Valloric/ListToggle'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'kevinhwang91/nvim-bqf'
-Plug "cbochs/portal.nvim"
-
---- Git
-Plug 'tpope/vim-fugitive'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'TimUntersberger/neogit'
-Plug 'sindrets/diffview.nvim'
+require('lazy').setup({
+'echasnovski/mini.nvim',                        -- many helpful plugings: sessions, starter, trailspace, align, comment, bracketed, surround
+'nvim-treesitter/nvim-treesitter',              -- treesitter configurations for syntax highlighting and more
+'nvim-treesitter/nvim-treesitter-textobjects',  -- add textobjects with treesitter
+'RRethy/nvim-treesitter-endwise',               -- automatically add end in Ruby
+'nvim-treesitter/playground',                   -- visualize lsp nodes
+'phaazon/hop.nvim',                             -- quick navigation to matching string
+'terryma/vim-multiple-cursors',                 -- multiple cursors
+'maxbrunsfeld/vim-yankstack',                   -- cycle through yanked items when pasting
+'mbbill/undotree',                              -- view a tree of undos and step back and forward
+'ojroques/vim-oscyank',                         -- yank using osc52, to send to clipboard on remote clients
+'andymass/vim-matchup',                         -- highlight the start and end of blocks
+'windwp/nvim-autopairs',                        -- auto pair punctuation
+'windwp/nvim-ts-autotag',                       -- auto pair and rename TSX tags
+'smjonas/inc-rename.nvim',                      -- interactively rename LSP objects
+'Wansmer/treesj',                               -- split/join lines based on treesitter
+'nvim-telescope/telescope.nvim',                -- a fuzzy finder
+'kyoh86/telescope-windows.nvim',                -- add a list of neovim windows to telescope
+'nvim-lua/plenary.nvim',                        -- required by many other plugins
+'moll/vim-bbye',                                -- close buffers without closing the window they're in
+'sindrets/winshift.nvim',                       -- interactively rearrange windows
+'Valloric/ListToggle',                          -- keybindings to toggle the quickfix list and locationlist
+'kyazdani42/nvim-tree.lua',                     -- a sidebar file explorder tree
+'kevinhwang91/nvim-bqf',                        -- adds a preview to the currently selected quickfix item
+'cbochs/portal.nvim',                           -- locationlists with previews and multiple stacks
+'lewis6991/gitsigns.nvim',                      -- view git changes in sidebar
+'sindrets/diffview.nvim',                       -- a tabpage for viewing the diffs in a git revision
+'luisiacc/gruvbox-baby',                        -- a treesitter-aware theme
+'nvim-lualine/lualine.nvim',                    -- statusline
+'neovim/nvim-lspconfig',                        -- configurations for the LSP client in neovim
+'nvim-lua/lsp-status.nvim',                     -- statusline components from LSP, like current function
+'kyazdani42/nvim-web-devicons',                 -- icons for use with plugins like nvim-tree
+'folke/trouble.nvim',                           -- a status pane containing diagnostic information from LSP
+'ms-jpq/coq_nvim',                              -- autocomplete
+'jose-elias-alvarez/null-ls.nvim',              -- allows plugging into LSP from non-server plugins, like gitsigns
+'jose-elias-alvarez/typescript.nvim',           -- adds typescript commands to LSP's code actions
+'akinsho/toggleterm.nvim',                      -- toggleable, persistent terminals for running tests and other tasks
+'yorickpeterse/nvim-dd',                        -- defer diagnostics, needed to make trouble and coq work together well
+'folke/which-key.nvim',                         -- organize and preview keymappings
+-- this fix should no longer be needed, but seems to be for me as of 0.9:
+-- https://github.com/neovim/neovim/pull/20198
+'antoinemadec/FixCursorHold.nvim',
+{ 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }, -- faster and fuzzy sorting for telescope
+})
 
 
---- Appearence
-Plug 'luisiacc/gruvbox-baby'
-Plug 'nvim-lualine/lualine.nvim'
+-- mini.nvim --
 
---- LSP
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/lsp-status.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'folke/trouble.nvim'
-Plug 'lewis6991/impatient.nvim'
-Plug 'ms-jpq/coq_nvim'
-Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-Plug 'jose-elias-alvarez/typescript.nvim'
-Plug 'https://gitlab.com/yorickpeterse/nvim-dd.git'
-Plug 'RRethy/nvim-treesitter-endwise'
-Plug 'nvim-treesitter/playground'
-
--- Terminals and tests
-Plug 'akinsho/toggleterm.nvim'
-
--- Fixes
-Plug 'antoinemadec/FixCursorHold.nvim'
-
-vim.call('plug#end')
-
--- impatient
-require'impatient'
-
--- Mini
+require('mini.align').setup()
+require('mini.comment').setup()
 
 local sessions = require('mini.sessions')
 sessions.setup({
@@ -88,16 +56,6 @@ sessions.setup({
   directory = '~/.local/share/nvim/sessions',
   force = { read = false, write = true, delete = false }
 })
-
--- use the path as a session file, but don't put
--- literal slashes into the filename to make it easier
--- to use
-local writeSession = function()
-  path = string.gsub(vim.fn.getcwd(), "/", "_")
-  sessions.write(path)
-end
-
-vim.keymap.set('n', '<Leader>se', writeSession)
 
 require('mini.starter').setup({
   evaluate_single = true
@@ -113,45 +71,88 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end
 })
 
--- vim sandwich
-
--- Add leader to mappings to avoid slowing down vim's
--- substitue ('s') mapping
-vim.g.sandwich_no_default_key_mappings          = true
-vim.g.operator_sandwich_no_default_key_mappings = true
-
-vim.keymap.set('',  '<Leader>sa', '<Plug>(operator-sandwich-add)')
-vim.keymap.set('x', '<Leader>sd', '<Plug>(operator-sandwich-delete)')
-vim.keymap.set('x', '<Leader>sr', '<Plug>(operator-sandwich-replace)')
-vim.keymap.set('n', '<Leader>sd', '<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)')
-vim.keymap.set('n', '<Leader>sr', '<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)')
-vim.keymap.set('n', '<Leader>sd', '<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)')
-vim.keymap.set('n', '<Leader>sr', '<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)')
+require('mini.bracketed').setup()
+require('mini.surround').setup()
 
 
--- nvim-dd
+-- nvim-treesitter --
 
--- Load diagnostics instantly in normal
--- mode but not in insert mode, to avoid
--- trouble.nvim breaking coq_nvim
-require('dd').setup({
-  timeout = 0
-})
+-- Necessary to build some grammars if clang is installed via nix
+require('nvim-treesitter.install').compilers = { 'clang++' }
+
+require('nvim-treesitter.configs').setup {
+  autotag = {
+    enable = true
+  },
+  endwise = {
+    enable = true,
+  },
+  ensure_installed = 'all',
+  highlight = {
+    enable                            = true,
+    disable                           = { },
+    additional_vim_regex_highlighting = false,
+  },
+  ignore_install = { 'phpdoc' }, -- broken
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection    = 'gnn',
+      node_incremental  = 'grn',
+      scope_incremental = 'grc',
+      node_decremental  = 'grm',
+    },
+  },
+  indent = {
+    enable  = true,
+    disable = {},
+  },
+  matchup = {
+    enable  = true,
+    disable = {},
+  },
+  -- install one-at-a-time on low-memory servers
+  sync_install = (vim.loop.os_uname().sysname == 'Linux' and true or false),
+  textobjects = {
+    swap = {
+      enable = true,
+      swap_next = {
+        ['>,'] = '@parameter.inner',
+      },
+      swap_previous = {
+        ['<,'] = '@parameter.inner',
+      },
+    },
+    select = {
+      enable    = true,
+      lookahead = true,
+      keymaps   = {
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
+      },
+    },
+  }
+}
+
+local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+parser_config.tsx.filetype_to_parsername = { 'javascript', 'typescript.tsx' }
 
 
--- winshift
-require("winshift").setup()
-vim.keymap.set('',  '<C-W><C-M>', '<Cmd>WinShift<CR>')
-vim.keymap.set('',  '<C-W>m', '<Cmd>WinShift<CR>')
+-- hop.nvim --
+require('hop').setup()
 
-vim.keymap.set('',  '<C-W>X',  '<Cmd>WinShift swap<CR>')
-vim.keymap.set('',  '<C-M-H>', '<Cmd>WinShift left<CR>')
-vim.keymap.set('',  '<C-M-J>', '<Cmd>WinShift down<CR>')
-vim.keymap.set('',  '<C-M-K>', '<Cmd>WinShift up<CR>')
-vim.keymap.set('',  '<C-M-L>', '<Cmd>WinShift right<CR>')
+-- vim-multiple-cursors --
+-- Stay in multiple cursor mode until canceled, for better movement
+vim.g.multi_cursor_exit_from_insert_mode = 0
 
 
--- autopairs
+-- vim-matchup --
+vim.g.matchup_matchparen_offscreen = { scrolloff = 1 }
+
+
+-- nvim-autopairs --
 local npairs = require('nvim-autopairs')
 local remap = vim.api.nvim_set_keymap
 
@@ -161,10 +162,8 @@ npairs.setup {
   enable_check_bracket_line = false
 }
 
--- Remap CR and BS to work with autopairs
--- Specifically, this allows indent to keep working
+-- Remap CR and BS to work with autopairs. Specifically, this allows indent to keep working
 -- when an autopaired character is present when pressing CR
-
 vim.g.coq_settings = { keymap = { recommended = false } }
 
 remap('i', '<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
@@ -196,54 +195,22 @@ MUtils.BS = function()
 end
 remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
--- neogit
-local neogit = require('neogit')
-neogit.setup {
-  integrations = {
-    diffview = true
-  }
-}
 
--- treesj
+-- inc rename --
+require("inc_rename").setup()
+vim.keymap.set("n", "<Leader>rn", ":IncRename ")
+
+
+-- treesj --
 local tsj = require('treesj')
-
-
 tsj.setup({
   use_default_keymaps = false,
 })
 
 vim.keymap.set('n', '<Leader>\\', tsj.toggle)
 
--- inc rename
-require("inc_rename").setup()
-vim.keymap.set("n", "<Leader>rn", ":IncRename ")
 
--- toggleterm
-require("toggleterm").setup{
-  start_in_insert = false
-}
-vim.keymap.set('n', '<Leader>t', '<CMD>exe v:count1 . "ToggleTerm"<CR>')
-
--- nvim-tree
-require("nvim-tree").setup({
-  renderer = {
-    icons = {
-      show = {
-        folder = false
-      }
-    }
-  }
-})
-
-vim.keymap.set('n', '<Leader>v',   ':NvimTreeToggle<CR>')
-vim.keymap.set('n', '<Leader>fr', ':NvimTreeFindFile<CR>')
-
---bwap
-vim.keymap.set('n', '<Leader>ne', ':NavBuffer<CR>')
-vim.keymap.set('n', '<Leader>nn', ':SwapBuffer<CR>')
-vim.keymap.set('n', '<Leader>nd', ':DeleteBuffer<CR>')
-
--- Telescope{
+-- telescope.nvim --
 local fzf_opts = {
   fuzzy                   = true,
   override_generic_sorter = true,
@@ -309,25 +276,46 @@ vim.keymap.set('n', '<Leader>k',    telescope_builtin.quickfix)
 vim.keymap.set('n', '<Leader>j',    telescope_builtin.jumplist)
 vim.keymap.set('n', '""',           telescope_builtin.registers)
 
-require'hop'.setup()
-vim.keymap.set('n', '<S-a>', '<CMD>HopPattern<CR>',  {silent = true})
 
--- Portal
-require("portal").setup({
+-- winshift.nvim --
+require("winshift").setup()
+vim.keymap.set('',  '<C-W><C-M>', '<Cmd>WinShift<CR>')
+vim.keymap.set('',  '<C-W>m', '<Cmd>WinShift<CR>')
+
+vim.keymap.set('',  '<C-W>X',  '<Cmd>WinShift swap<CR>')
+vim.keymap.set('',  '<C-M-H>', '<Cmd>WinShift left<CR>')
+vim.keymap.set('',  '<C-M-J>', '<Cmd>WinShift down<CR>')
+vim.keymap.set('',  '<C-M-K>', '<Cmd>WinShift up<CR>')
+vim.keymap.set('',  '<C-M-L>', '<Cmd>WinShift right<CR>')
+
+
+-- nvim-tree.lua --
+require("nvim-tree").setup({
+  renderer = {
+    icons = {
+      show = {
+        folder = false
+      }
+    }
+  }
 })
+
+
+-- portal.nvim --
+require("portal").setup({})
 
 vim.keymap.set("n", "<Leader>i", "<cmd>Portal jumplist backward<cr>")
 vim.keymap.set("n", "<Leader>o", "<cmd>Portal jumplist forward<cr>")
 
--- EasyAlign
-vim.keymap.set('v', 'ga', '<Plug>(EasyAlign)')
-vim.keymap.set('v', 'ga', '<Plug>(EasyAlign)')
+vim.keymap.set('n', '<Leader>v',   ':NvimTreeToggle<CR>')
+vim.keymap.set('n', '<Leader>fr', ':NvimTreeFindFile<CR>')
 
--- Vim Multiple Cursors
--- Stay in multiple cursor mode until canceled, for better movement
-vim.g.multi_cursor_exit_from_insert_mode = 0
 
--- Lualine
+-- gitsigns.nvim --
+require('gitsigns').setup()
+
+
+-- lualine.nvim --
 lsp_status = require('lsp-status')
 
 function LspStatus()
@@ -372,15 +360,25 @@ require('lualine').setup {
   extensions = {}
 }
 
--- Trouble
+-- trouble.nvim --
 require("trouble").setup {}
 vim.keymap.set('n', '<Leader>d', '<CMD>TroubleToggle<CR>')
 
--- matchup
-vim.g.matchup_matchparen_offscreen = { scrolloff = 1 }
 
--- coq
+-- coq_nvim --
 vim.g.coq_settings = { auto_start = 'shut-up' }
 
--- gitsigns
-require('gitsigns').setup()
+
+-- toggleterm.nvim --
+require("toggleterm").setup{
+  start_in_insert = false
+}
+vim.keymap.set('n', '<Leader>t', '<CMD>exe v:count1 . "ToggleTerm"<CR>')
+
+
+-- nvim-dd --
+
+-- Load diagnostics instantly in normal mode but not in insert mode, to avoid trouble.nvim breaking coq_nvim
+require('dd').setup({
+  timeout = 0
+})

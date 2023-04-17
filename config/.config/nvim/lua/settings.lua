@@ -6,6 +6,7 @@ vim.o.incsearch      = true
 vim.o.expandtab      = true
 vim.o.shiftwidth     = 2
 vim.o.tabstop        = 2
+vim.o.softtabstop    = 2
 vim.o.termguicolors  = true
 vim.o.syntax         = false
 vim.o.encoding       = "utf-8"
@@ -14,7 +15,7 @@ vim.o.inccommand     = "nosplit"
 vim.o.guioptions     = ""
 vim.g.mapleader      = " "
 
-
+-- Allow switching buffers without saving them
 vim.o.hidden = true
 
 -- Performance related
@@ -27,7 +28,6 @@ vim.o.lazyredraw            = true
 vim.o.cursorline            = false
 vim.o.cursorcolumn          = false
 vim.g.cursorhold_updatetime = 100
-
 
 -- Don't load default vim plugins
 vim.g.loaded_matchparen        = 1
@@ -53,19 +53,11 @@ vim.o.showtabline = false
 vim.o.splitbelow = true
 vim.o.splitright = true
 
--- Leave this to filetype.nvim
-vim.g.did_load_filetypes = 1
-
 local autocmd = vim.api.nvim_create_autocmd
-
--- Swift needs this for some reason
-autocmd('Filetype', { pattern = { 'Swift' }, command = 'setlocal softtabstop=2 shiftwidth=2 tabstop=2'})
-
--- Strip trailing whitespace on save
-autocmd('BufWritePre', { pattern = '', command = ':%s/\\s\\+$//e' })
 
 -- Start with an empty jumplist, to avoid jumps to other projects
 autocmd('VimEnter', { pattern = '*', command = 'clearjumps' })
 
+-- Prevent unwanted treatmenat of end in Ruby
 -- https://github.com/tree-sitter/tree-sitter-ruby/issues/230
 autocmd('Filetype', { pattern = { 'Ruby' }, command = 'setlocal indentkeys-=.'})

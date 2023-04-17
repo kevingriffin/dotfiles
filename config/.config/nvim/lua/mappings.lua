@@ -1,44 +1,67 @@
--- Move to alternate buffer with double leader
-vim.keymap.set('n', '<Leader>bb', '<C-^>')
+local wk = require('which-key')
+local sessions = require('mini.sessions')
 
--- Use tab in normal mode to go through splits
-vim.keymap.set('n', '<Tab>',   '<C-W><C-W>')
-vim.keymap.set('n', '<S-Tab>', '<C-W>W')
+-- Functions for keymappings --
+
+-- use the path as a session file, but don't put literal slashes into the filename to make it easier to use
+local writeSession = function()
+  path = string.gsub(vim.fn.getcwd(), "/", "_")
+  sessions.write(path)
+end
+
+wk.register(
+  {
+    b = {
+      name = 'buffer',
+      b    = { '<C-^>',         'Move to alternative buffer' },
+      d    = { ':Bwipeout<CR>', 'Delete buffer'              }
+    },
+
+    ['cf'] = {':let @+ = expand("%")<CR>', 'Copy filepath to clipboard' },
+
+    m = {
+      name = 'mini',
+      s    = { writeSession, 'Write to session' }
+    },
+
+    ['='] = { '<C-W>=', 'Balance windows' }
+  }, { prefix = '<Leader>', mode = 'n' }
+)
+
+wk.register(
+  {
+    name = 'Hop',
+    q    = { '<CMD>HopPattern<CR>', 'Jump to pattern' },
+  }, { mode = 'n' }
+)
+
+wk.register(
+  {
+    name = 'Windows',
+    ['<C-J>']   = { '<C-W><C-J>', 'Move to window below' },
+    ['<C-K>']   = { '<C-W><C-K>', 'Move to window above' },
+    ['<C-L>']   = { '<C-W><C-L>', 'Move to window right' },
+    ['<C-H>']   = { '<C-W><C-H>', 'Move to window left'  },
+    ['<S-A-J>'] = { '<C-W>+',     'Resize up'            },
+    ['<S-A-K>'] = { '<C-W>-',     'Resize down'          },
+    ['<S-A-L>'] = { '<C-W>>',     'Move to window right' },
+    ['<S-A-H>'] = { '<C-W><',     'Move to window left'  },
+  }, { mode = 'n' }
+)
+
+wk.register(
+  {
+    name = 'Tab',
+    ['<Tab>']   = { '<C-W><C-W>', 'Move to next window'     },
+    ['<S-Tab>'] = { '<C-W>W',     'Move to previous window' }
+  }, { mode = 'n' }
+)
+
+wk.register(
+  {
+    y = { '"+y', 'Copy to system clipboard' }
+  }, { prefix = '<Leader>', mode = 'v' }
+)
 
 -- Exit terminal a bit easier
 vim.keymap.set('t', '<C-\\><C-\\>', '<C-\\><C-N>')
-
--- Easier balance windows
-vim.keymap.set('n', '<Leader>=', '<C-W>=')
-
--- Split nativation
-vim.keymap.set('n', '<C-J>', '<C-W><C-J>')
-vim.keymap.set('n', '<C-K>', '<C-W><C-K>')
-vim.keymap.set('n', '<C-L>', '<C-W><C-L>')
-vim.keymap.set('n', '<C-H>', '<C-W><C-H>')
-
--- Resize splits
-if vim.fn.bufwinnr(1) then
-  vim.keymap.set('n', '<S-A-J>', '<C-W>+')
-  vim.keymap.set('n', '<S-A-K>', '<C-W>-')
-  vim.keymap.set('n', '<S-A-L>', '<C-W>>')
-  vim.keymap.set('n', '<S-A-H>', '<C-W><')
-end
-
--- Copy to the system clipboard easily
-vim.keymap.set('v', '<Leader>y', '"+y')
-
--- Put the current file path onto the system clipboard
-vim.keymap.set('n', 'cf', ':let @+ = expand("%")<CR>')
-
--- Replace inner selections
-vim.keymap.set('n', '<Leader>ri\'', 'vi\'p')
-vim.keymap.set('n', '<Leader>ri"', 'vi\"p')
-
--- Push selection to file for copy elsewhere (via ssh)
-vim.keymap.set('v', '<Leader>z', ':w! /tmp/clip<CR>')
-
--- Paste the most recently copied (not deleted) item
-vim.keymap.set('n', '<Leader>y',  '"0y<CR>')
-vim.keymap.set('n', '<Leader>pp', '"0p<CR>')
-vim.keymap.set('n', '<Leader>PP', '"0P<CR>')
