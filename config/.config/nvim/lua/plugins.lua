@@ -31,7 +31,6 @@ require('lazy').setup({
 'nvim-lua/lsp-status.nvim',                     -- statusline components from LSP, like current function
 'kyazdani42/nvim-web-devicons',                 -- icons for use with plugins like nvim-tree
 'folke/trouble.nvim',                           -- a status pane containing diagnostic information from LSP
-'ms-jpq/coq_nvim',                              -- autocomplete
 'jose-elias-alvarez/null-ls.nvim',              -- allows plugging into LSP from non-server plugins, like gitsigns
 'jose-elias-alvarez/typescript.nvim',           -- adds typescript commands to LSP's code actions
 'akinsho/toggleterm.nvim',                      -- toggleable, persistent terminals for running tests and other tasks
@@ -41,8 +40,8 @@ require('lazy').setup({
 -- https://github.com/neovim/neovim/pull/20198
 'antoinemadec/FixCursorHold.nvim',
 { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }, -- faster and fuzzy sorting for telescope
+{ 'ms-jpq/coq_nvim', lazy = false, init = function() vim.g.coq_settings = { auto_start = 'shut-up' } end } -- autocomplete
 })
-
 
 -- mini.nvim --
 
@@ -365,10 +364,6 @@ require("trouble").setup {}
 vim.keymap.set('n', '<Leader>d', '<CMD>TroubleToggle<CR>')
 
 
--- coq_nvim --
-vim.g.coq_settings = { auto_start = 'shut-up' }
-
-
 -- toggleterm.nvim --
 require("toggleterm").setup{
   start_in_insert = false
@@ -382,3 +377,27 @@ vim.keymap.set('n', '<Leader>t', '<CMD>exe v:count1 . "ToggleTerm"<CR>')
 require('dd').setup({
   timeout = 0
 })
+
+
+-- coq_vim --
+vim.g.coq_settings = {
+  clients = {
+    snippets = {
+      warn = {}
+    }
+  },
+  display = {
+    pum = {
+      y_ratio   = 0.4,
+      x_max_len = 88
+    },
+    preview = {
+      x_max_len = 160
+    }
+  },
+-- Don't overrwrite my binds for moving between splits
+  keymap = {
+    recommended = false,
+    jump_to_mark = ''
+  }
+}

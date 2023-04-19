@@ -30,8 +30,8 @@ wk.register(
 
 wk.register(
   {
-    name = 'Hop',
-    q    = { '<CMD>HopPattern<CR>', 'Jump to pattern' },
+    q     = { '<CMD>HopPattern<CR>', 'Jump to pattern' },
+    ['?'] = { '<CMD>WhichKey<CR>', 'Help' },
   }, { mode = 'n' }
 )
 
