@@ -23,7 +23,7 @@ local common = function(client, bufnr)
     {
       name = 'LSP',
       d = { '<CMD>lua vim.lsp.buf.definition()<CR>', 'Show definition' },
-      e = { '<CMD>lua vim.diagnostic.open_float<CR>', 'Diagnostics float' },
+      e = { '<CMD>lua vim.diagnostic.open_float()<CR>', 'Diagnostics float' },
       f = { '<CMD>lua vim.lsp.buf.format()<CR>', 'Format' },
       h = { '<CMD>lua vim.lsp.buf.hover()<CR>', 'Hover' },
       i = { '<CMD>lua vim.lsp.buf.implementation()<CR>', 'Show implementation' },
@@ -40,10 +40,20 @@ local common = function(client, bufnr)
     }
   )
 
+  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
+
   vim.diagnostic.config({
-    virtual_text = false,
-    signs        = false,
-    underline    = false
+    virtual_text  = false,
+    underline     = false,
+    signs         = true,
+    severity_sort = true,
+    float = {
+      source = 'always'
+    },
   })
 end
 
