@@ -82,6 +82,14 @@ wk.register(
 
 wk.register(
   {
+    name = 'Emacs insert bindings',
+    ['<C-A>'] = {'<Home>', 'Start of line' },
+    ['<C-E>'] = {'<End>', 'End of line' },
+  }, { mode = 'i' }
+)
+
+wk.register(
+  {
     r = { searchVisualSelection, 'Search visual selection' },
   }, { prefix = '<Leader>', mode = 'v' }
 )
@@ -96,6 +104,8 @@ wk.register(
 
 wk.register(
   {
+    ["[o"] = { ':<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>', "Insert blank line before"},
+    ["]o"] = { ':<C-u>call append(line("."),   repeat([""], v:count1))<CR>', "Insert blank line after"},
     q     = { '<CMD>HopPattern<CR>', 'Jump to pattern' },
     ['?'] = { '<CMD>WhichKey<CR>', 'Help' },
   }, { mode = 'n' }
@@ -135,6 +145,8 @@ vim.keymap.set('t', '<C-\\><C-\\>', '<C-\\><C-N>')
 -- Fix labels
 wk.register(
   {
+    ['C'] = { 'Change until end of line' },
+    ['D'] = { 'Delete until end of line' },
     p = { 'Paste after' },
     ['P'] = { 'Paste before' },
     s = { 'Substitute' },
