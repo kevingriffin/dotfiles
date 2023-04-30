@@ -76,12 +76,20 @@ local servers = {
   ['lua_ls'] = {
     enable = (vim.fn.executable('lua-language-server') == 1),
     on_attach = on_attach,
+    -- By default, lua-language-server wants to write to the install directory
     cmd = {'lua-language-server',
       '--logpath',
       '$HOME/.cache/lua-language-server/',
       '--metapath',
       '$HOME/.cache/lua-language-server/meta/'
-    }
+    },
+    settings = {
+    Lua = {
+      diagnostics = {
+        globals = {'vim'},
+      },
+    },
+    },
   },
 
 }

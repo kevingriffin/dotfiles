@@ -25,7 +25,8 @@ vim.o.hlsearch              = false
 vim.o.foldenable            = false
 vim.o.ttyfast               = true
 vim.o.lazyredraw            = true
-vim.o.cursorline            = false
+vim.o.cursorline            = true
+vim.o.cursorlineopt         = "number"
 vim.o.cursorcolumn          = false
 vim.g.cursorhold_updatetime = 100
 
@@ -58,6 +59,6 @@ local autocmd = vim.api.nvim_create_autocmd
 -- Start with an empty jumplist, to avoid jumps to other projects
 autocmd('VimEnter', { pattern = '*', command = 'clearjumps' })
 
--- Prevent unwanted treatmenat of end in Ruby
+-- Prevent unwanted treatment of end in Ruby
 -- https://github.com/tree-sitter/tree-sitter-ruby/issues/230
 autocmd('Filetype', { pattern = { 'Ruby' }, command = 'setlocal indentkeys-=.'})

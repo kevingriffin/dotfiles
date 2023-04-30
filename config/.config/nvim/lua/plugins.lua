@@ -20,7 +20,7 @@ require('lazy').setup({
 'moll/vim-bbye',                                -- close buffers without closing the window they're in
 'sindrets/winshift.nvim',                       -- interactively rearrange windows
 'Valloric/ListToggle',                          -- keybindings to toggle the quickfix list and locationlist
-'kyazdani42/nvim-tree.lua',                     -- a sidebar file explorder tree
+'kyazdani42/nvim-tree.lua',                     -- a sidebar file explorer tree
 'kevinhwang91/nvim-bqf',                        -- adds a preview to the currently selected quickfix item
 'cbochs/portal.nvim',                           -- locationlists with previews and multiple stacks
 'lewis6991/gitsigns.nvim',                      -- view git changes in sidebar
@@ -35,12 +35,25 @@ require('lazy').setup({
 'jose-elias-alvarez/typescript.nvim',           -- adds typescript commands to LSP's code actions
 'akinsho/toggleterm.nvim',                      -- toggleable, persistent terminals for running tests and other tasks
 'yorickpeterse/nvim-dd',                        -- defer diagnostics, needed to make trouble and coq work together well
-'folke/which-key.nvim',                         -- organize and preview keymappings
 -- this fix should no longer be needed, but seems to be for me as of 0.9:
 -- https://github.com/neovim/neovim/pull/20198
 'antoinemadec/FixCursorHold.nvim',
 { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }, -- faster and fuzzy sorting for telescope
-{ 'ms-jpq/coq_nvim', lazy = false, init = function() vim.g.coq_settings = { auto_start = 'shut-up' } end } -- autocomplete
+{ 'ms-jpq/coq_nvim', lazy = false, init = function() vim.g.coq_settings = { auto_start = 'shut-up' } end }, -- autocomplete
+{
+  "folke/which-key.nvim", -- organize and preview keymappings
+  config = function()
+    require("which-key").setup({
+      presets = {
+        operators = false, -- adds help for operators like d, y, ...
+        motions = false, -- adds help for motions
+        text_objects = false, -- help for text objects triggered after entering an operator
+        windows = false, -- default bindings on <c-w>
+        nav = false,
+      }
+    })
+  end,
+},
 })
 
 -- mini.nvim --
@@ -56,10 +69,6 @@ sessions.setup({
   force = { read = false, write = true, delete = false }
 })
 
-require('mini.starter').setup({
-  evaluate_single = true
-})
-
 require('mini.trailspace').setup({})
 
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -71,7 +80,21 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 require('mini.bracketed').setup()
-require('mini.surround').setup()
+
+require('mini.surround').setup({
+    mappings = {
+    add = '<Leader>sa', -- Add surrounding in Normal and Visual modes
+    delete = '<Leader>sd', -- Delete surrounding
+    find = '<Leader>sf', -- Find surrounding (to the right)
+    find_left = '<Leader>sF', -- Find surrounding (to the left)
+    highlight = '<Leader>sh', -- Highlight surrounding
+    replace = '<Leader>sr', -- Replace surrounding
+    update_n_lines = '<Leader>sn', -- Update `n_lines`
+
+    suffix_last = 'l', -- Suffix to search with "prev" method
+    suffix_next = 'n', -- Suffix to search with "next" method
+  },
+})
 
 
 -- nvim-treesitter --
@@ -96,10 +119,10 @@ require('nvim-treesitter.configs').setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection    = 'gnn',
-      node_incremental  = 'grn',
-      scope_incremental = 'grc',
-      node_decremental  = 'grm',
+      init_selection    = ';v',
+      node_incremental  = 'ni',
+      scope_incremental = 'si',
+      node_decremental  = 'nd',
     },
   },
   indent = {
@@ -116,10 +139,10 @@ require('nvim-treesitter.configs').setup {
     swap = {
       enable = true,
       swap_next = {
-        ['>,'] = '@parameter.inner',
+        [';>'] = '@parameter.inner',
       },
       swap_previous = {
-        ['<,'] = '@parameter.inner',
+        [';<'] = '@parameter.inner',
       },
     },
     select = {
@@ -197,8 +220,6 @@ remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
 
 -- inc rename --
 require("inc_rename").setup()
-vim.keymap.set("n", "<Leader>rn", ":IncRename ")
-
 
 -- treesj --
 local tsj = require('treesj')
@@ -241,52 +262,8 @@ require('telescope').setup {
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('windows')
 
--- Search files for visually selected text
-function vim.getVisualSelection()
-	vim.cmd('noau normal! "vy"')
-	local text = vim.fn.getreg('v')
-	vim.fn.setreg('v', {})
-
-	text = string.gsub(text, "\n", "")
-	if #text > 0 then
-		return text
-	else
-		return ''
-	end
-end
-
-local tb = require('telescope.builtin')
-
-vim.keymap.set('v', '<Leader>r', function()
-	local text = vim.getVisualSelection()
-	tb.live_grep({ default_text = text })
-end, { noremap = true, silent = true })
-
-local telescope_builtin = require 'telescope.builtin'
-
-vim.keymap.set('n', '<C-t>',        telescope_builtin.find_files)
-vim.keymap.set('n', '<C-S-p>',      telescope_builtin.resume)
-vim.keymap.set('n', '<Leader>a',    telescope_builtin.grep_string)
-vim.keymap.set('n', '<Leader><CR>', telescope_builtin.buffers)
-vim.keymap.set('n', '<Leader>ff',   telescope_builtin.live_grep)
-vim.keymap.set('n', '<Leader>/',    telescope_builtin.search_history)
-vim.keymap.set('n', '<Leader>:',    telescope_builtin.command_history)
-vim.keymap.set('n', '<Leader>k',    telescope_builtin.quickfix)
-vim.keymap.set('n', '<Leader>j',    telescope_builtin.jumplist)
-vim.keymap.set('n', '""',           telescope_builtin.registers)
-
-
 -- winshift.nvim --
 require("winshift").setup()
-vim.keymap.set('',  '<C-W><C-M>', '<Cmd>WinShift<CR>')
-vim.keymap.set('',  '<C-W>m', '<Cmd>WinShift<CR>')
-
-vim.keymap.set('',  '<C-W>X',  '<Cmd>WinShift swap<CR>')
-vim.keymap.set('',  '<C-M-H>', '<Cmd>WinShift left<CR>')
-vim.keymap.set('',  '<C-M-J>', '<Cmd>WinShift down<CR>')
-vim.keymap.set('',  '<C-M-K>', '<Cmd>WinShift up<CR>')
-vim.keymap.set('',  '<C-M-L>', '<Cmd>WinShift right<CR>')
-
 
 -- nvim-tree.lua --
 require("nvim-tree").setup({
@@ -299,15 +276,8 @@ require("nvim-tree").setup({
   }
 })
 
-
 -- portal.nvim --
 require("portal").setup({})
-
-vim.keymap.set("n", "<Leader>i", "<cmd>Portal jumplist backward<cr>")
-vim.keymap.set("n", "<Leader>o", "<cmd>Portal jumplist forward<cr>")
-
-vim.keymap.set('n', '<Leader>v',   ':NvimTreeToggle<CR>')
-vim.keymap.set('n', '<Leader>fr', ':NvimTreeFindFile<CR>')
 
 
 -- gitsigns.nvim --
@@ -315,7 +285,7 @@ require('gitsigns').setup()
 
 
 -- lualine.nvim --
-lsp_status = require('lsp-status')
+local lsp_status = require('lsp-status')
 
 function LspStatus()
   if #vim.lsp.buf_get_clients() < 1 then return "" end
@@ -361,15 +331,11 @@ require('lualine').setup {
 
 -- trouble.nvim --
 require("trouble").setup {}
-vim.keymap.set('n', '<Leader>d', '<CMD>TroubleToggle<CR>')
-
 
 -- toggleterm.nvim --
 require("toggleterm").setup{
   start_in_insert = false
 }
-vim.keymap.set('n', '<Leader>t', '<CMD>exe v:count1 . "ToggleTerm"<CR>')
-
 
 -- nvim-dd --
 
@@ -377,7 +343,6 @@ vim.keymap.set('n', '<Leader>t', '<CMD>exe v:count1 . "ToggleTerm"<CR>')
 require('dd').setup({
   timeout = 0
 })
-
 
 -- coq_vim --
 vim.g.coq_settings = {
