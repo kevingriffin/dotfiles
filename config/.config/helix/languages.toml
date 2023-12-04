@@ -1,0 +1,13 @@
+[[language]]
+name = "swift"
+indent = { tab-width = 2, unit = " " }
+
+[[language]]
+name = "typescript"
+formatter = { command = "dprint", args = [ "fmt", "--stdin", "typescript" ] }
+auto-format = true
+
+[[language]]
+name = "tsx"
+formatter = { command = "dprint", args = [ "fmt", "--stdin", "tsx" ] }
+auto-format = true
