@@ -1,3 +1,5 @@
+[include]
+  path = "./.local.gitconfig"
 [pull]
   ff     = only
   rebase = true
@@ -8,7 +10,7 @@
   email = me@kevin.jp
   signingkey = 7AABE6811CCEED54
 [core]
-  editor = nvim
+  editor = hx
   pager  = delta
 [interactive]
   diffFilter = delta --color-only
@@ -24,10 +26,11 @@
   d = diff
   b = branch
   r = rebase -i
+  cp = 'cherry-pick'
   af = !git add $(git ls-files --modified --others --exclude-standard | fzf -m)
   rf = !git reset $@ $(git diff --name-only --cached | fzf +s -m | awk '{print $1}')
   cf = !git checkout -- $(git ls-files --modified --exclude-standard | fzf -m)
-  ff = !git commit --fixup=$(git log --pretty=oneline --abbrev-commit | fzf +s | awk '{print $1'})
+  ff = !git commit --fixup=$(git log --pretty=oneline --abbrev-commit | fzf +s | awk '{print $1}')
   df = !git diff -- $(git ls-files --modified --exclude-standard | fzf -m)
   sc = !git show $(git log --pretty=oneline --abbrev-commit | fzf +s | awk '{print $1}')
 [commit]
@@ -36,13 +39,19 @@
   program = gpg
 [rebase]
   autosquash = true
-[diff]
-  tool = nvimdiff
-[merge]
-  tool = nvimdiff
-[difftool "nvimdiff"]
-  cmd = "nvim -R -d -c \"wincmd l\" -d \"$LOCAL\" \"$REMOTE\""
+[mergetool "p4merge"]
+	path = "/Applications/p4merge.app/Contents/Resources/launchp4merge"
 [mergetool "nvimdiff"]
   cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
 [init]
 	defaultBranch = main
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+	trustExitCode = true
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[mergetool]
+	prompt = false

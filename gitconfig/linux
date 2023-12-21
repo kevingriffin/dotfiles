@@ -1,0 +1,4 @@
+[diff]
+  tool = nvimdiff
+[merge]
+  tool = nvimdiff
