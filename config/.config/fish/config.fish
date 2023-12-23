@@ -31,3 +31,6 @@ abbr -a b "bat"
 if test (uname) = "Darwin"
   set PATH (path-reordered)
 end
+
+zoxide init fish | source
+starship init fish | source
