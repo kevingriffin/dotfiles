@@ -11,3 +11,7 @@ auto-format = true
 name = "tsx"
 formatter = { command = "dprint", args = [ "fmt", "--stdin", "tsx" ] }
 auto-format = true
+
+[[language]]
+name = "nix"
+formatter = { command = "nixpkgs-fmt" }
