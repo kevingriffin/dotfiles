@@ -17,6 +17,7 @@ abbr -a ec cd "$HOME/src/eikaiwa_content"
 abbr -a ecf cd "$HOME/src/eikaiwa_content_frontend"
 abbr -a ecr cd "$HOME/src/eikaiwa-realtime"
 abbr -a e cd "$HOME/Developer/Eikaiwa"
+abbr -a nic cd "$HOME/nix-config/nixpkgs/.config/nixpkgs"
 abbr -a l "eza -l --no-permissions --octal-permissions"
 abbr -a ll "eza -l --no-permissions --octal-permissions"
 abbr -a la "eza -a -l --no-permissions --octal-permissions"
@@ -28,6 +29,7 @@ abbr -a elr "eza --no-permissions --octal-permissions -@ -a -l -R -L2 -I.git"
 abbr -a c "bat -pp"
 abbr -a b "bat"
 
+# nix-provided binaries don't come first on macOS without this
 if test (uname) = "Darwin"
   set PATH (path-reordered)
 end
