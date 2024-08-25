@@ -11,7 +11,7 @@ abbr -a ddl cd $HOME/Downloads
 abbr -a icl cd "$HOME/Library/Mobile\ Documents/com~apple~CloudDocs"
 abbr -a src cd "$HOME/src"
 abbr -a dot cd "$HOME/dotfiles"
-abbr -a dc  cd "$HOME/dotfiles/config/.config"
+abbr -a dc cd "$HOME/dotfiles/config/.config"
 abbr -a ik cd "$HOME/src/iknow"
 abbr -a ec cd "$HOME/src/eikaiwa_content"
 abbr -a ecf cd "$HOME/src/eikaiwa_content_frontend"
@@ -27,12 +27,13 @@ abbr -a era "eza -R -a -L2"
 abbr -a ela "eza -la --no-permissions --octal-permissions"
 abbr -a elr "eza --no-permissions --octal-permissions -@ -a -l -R -L2 -I.git"
 abbr -a c "bat -pp"
-abbr -a b "bat"
+abbr -a b bat
+abbr -a pc "git c Eikaiwa.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved"
 
 # nix-provided binaries don't come first on macOS without this
-if test (uname) = "Darwin"
-  set PATH (path-reordered)
+if test (uname) = Darwin
+    set PATH (path-reordered)
 end
 
-zoxide init fish | source
+zoxide init fish --cmd a | source
 starship init fish | source

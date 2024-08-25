@@ -14,3 +14,4 @@ inherits = "gruvbox"
 "constant.builtin" = "orange1"
 
 "ui.background" ={}
+"ui.virtual.jump-label" = { fg = "light-gray", modifiers = ["bold"] }

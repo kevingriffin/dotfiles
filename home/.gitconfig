@@ -5,6 +5,7 @@
   rebase = true
 [push]
   default = upstream
+	autoSetupRemote = true
 [user]
   name = Kevin Griffin
   email = me@kevin.jp
