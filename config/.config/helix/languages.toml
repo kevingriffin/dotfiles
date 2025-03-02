@@ -20,3 +20,7 @@ formatter = { command = "nixpkgs-fmt" }
 [[language]]
 name = "ruby"
 formatter = { command = "rubyfmt" }
+
+[[language]]
+name = "erb"
+formatter = { command = "erb-format", args = [ "--stdin" ] }
