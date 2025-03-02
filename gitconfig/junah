@@ -1,0 +1,4 @@
+[diff]
+  tool = Kaleidoscope
+[merge]
+  tool = Kaleidoscope
