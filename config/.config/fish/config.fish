@@ -29,6 +29,7 @@ abbr -a elr "eza --no-permissions --octal-permissions -@ -a -l -R -L2 -I.git"
 abbr -a c "bat -pp"
 abbr -a b bat
 abbr -a pc "git c Eikaiwa.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved"
+abbr -a sf "./BuildTools/.build/arm64-apple-macosx/release/swiftformat ."
 
 # nix-provided binaries don't come first on macOS without this
 if test (uname) = Darwin
