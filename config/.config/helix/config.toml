@@ -2,6 +2,12 @@ theme = "gruvbox_community"
 
 [editor]
 true-color = true
+auto-save = true
+color-modes = true
+
+[editor.inline-diagnostics]
+cursor-line = "hint"
+other-lines = "disable"
 
 [keys.normal]
 A-d = "delete_selection"
@@ -12,3 +18,15 @@ C-h = "jump_view_left"
 C-j = "jump_view_down"
 C-k = "jump_view_up"
 C-l = "jump_view_right"
+C-s = [
+    "save_selection",
+    "select_all",
+    # Delete trailing whitespace from end of each line
+    ":pipe sed 's/[ \t]*$//'",
+    # Delete trailing blank lines (including whitespace) from end of the buffer
+    ":pipe awk '/^\\s*$/ {b=b $0 \"\\n\"; next;} {printf \"%s\",b; b=\"\"; print;}'",
+    "collapse_selection",
+    "jump_backward",
+    "commit_undo_checkpoint",
+    ":write",
+]
