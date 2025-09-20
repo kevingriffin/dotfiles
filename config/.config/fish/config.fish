@@ -37,4 +37,3 @@ if test (uname) = Darwin
 end
 
 zoxide init fish --cmd a | source
-starship init fish | source
