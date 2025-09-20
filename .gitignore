@@ -33,3 +33,4 @@ fish/functions/__fzf_parse_commandline.fish
 fish/functions/__fzf_reverse_isearch.fish
 fish/functions/__fzfcmd.fish
 home/.local.gitconfig
+config/.config/fish/fish_variables
