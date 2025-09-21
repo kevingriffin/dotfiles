@@ -19,7 +19,7 @@ formatter = { command = "nixpkgs-fmt" }
 
 [[language]]
 name = "ruby"
-formatter = { command = "rubyfmt" }
+formatter = { command = "bundle", args = ["exec", "rubocop", "--stdin", "foo.rb", "-a", "--stderr", "--fail-level", "fatal"] }
 
 [[language]]
 name = "erb"
