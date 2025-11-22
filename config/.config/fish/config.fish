@@ -28,12 +28,12 @@ abbr -a ela "eza -la --no-permissions --octal-permissions"
 abbr -a elr "eza --no-permissions --octal-permissions -@ -a -l -R -L2 -I.git"
 abbr -a c "bat -pp"
 abbr -a b bat
-abbr -a pc "git c Eikaiwa.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved"
+abbr -a r rg
 abbr -a sf "./BuildTools/.build/arm64-apple-macosx/release/swiftformat ."
 
 # nix-provided binaries don't come first on macOS without this
-if test (uname) = Darwin
-    set PATH (path-reordered)
-end
+# if test (uname) = Darwin
+#     set PATH (path-reordered)
+# end
 
 zoxide init fish --cmd a | source
