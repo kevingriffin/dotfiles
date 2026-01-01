@@ -52,8 +52,10 @@ font-size = 10
 theme = "Kanagawa Wave"
 window-inherit-working-directory = false
 working-directory = home
-keybind = global:cmd+escape=toggle_quick_terminal
+keybind = global:ctrl+escape=toggle_quick_terminal
 quick-terminal-animation-duration = 0
 quick-terminal-position = bottom
 quick-terminal-size = 20%
 font-thicken = true
+auto-update-channel = tip
+keybind = shift+enter=text:\x1b\r
