@@ -3,6 +3,14 @@ set -x PAGER less -R
 set -x LC_ALL en_US.UTF-8
 set -x LC_CTYPE en_US.UTF-8
 
+# Secretive SSH agent socket (macOS only)
+if test (uname) = Darwin
+    set secretive_sock /Users/kevin/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
+    if test -S $secretive_sock
+        set -x SSH_AUTH_SOCK $secretive_sock
+    end
+end
+
 abbr -a be bundle exec
 abbr -a g git
 abbr -a gf git ls-files --modified --others --exclude-standard
