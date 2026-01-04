@@ -58,4 +58,3 @@ quick-terminal-position = bottom
 quick-terminal-size = 20%
 font-thicken = true
 auto-update-channel = tip
-keybind = shift+enter=text:\x1b\r
